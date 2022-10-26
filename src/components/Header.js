@@ -2,38 +2,35 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-
+import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+import "../assets/styles/generalStyle.css";
+
+const Header = (props) => {
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: 5 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-          <Link
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            HOSPITAL
+          </Typography>
+          <div
             style={{
-              paddingRight: "10px",
-              textDecoration: "none",
-              color: "#fff",
+              display: "flex",
+              gap: "20px",
             }}
-            to="/"
           >
-            <h2>HOSPITAL</h2>
-          </Link>
-          <Link
-            color="error"
-            style={{
-              textDecoration: "none",
-              color: "#fff",
-            }}
-            to="/add-patient"
-          >
-            <h3> Patients</h3>
-          </Link>
+            <Link className="menuLink" to="/">
+              Anasayfa
+            </Link>
+            <Link className="menuLink" to="/hastalar">
+              Hastalar
+            </Link>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
   );
 };
-
 export default Header;

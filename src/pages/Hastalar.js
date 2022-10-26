@@ -14,11 +14,19 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-const Patients = (props) => {
+import EditHastaModal from "../components/EditHastaModel";
+
+const Hastalar = (props) => {
   const navigate = useNavigate();
   const [hastalar, setHastalar] = useState(null);
   const [updateComponent, setUpdateComponent] = useState(false);
   const [randevular, setRandevular] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [selectedHasta, setSelectedHasta] = useState(null);
+
+  const handleClose = () => {
+    setOpenEditModal(false);
+  };
 
   useEffect(() => {
     axios
@@ -45,7 +53,7 @@ const Patients = (props) => {
       .delete(`http://localhost:3004/hastalar/${hasta.id}`)
       .then((deleteHastaRes) => {
         hasta.islemIds.map((islemId) => {
-          return axios
+          axios
             .delete(`http://localhost:3004/islemler/${islemId}`)
             .then((islemDeleteRes) => {})
             .catch((err) =>
@@ -53,7 +61,7 @@ const Patients = (props) => {
             );
         });
         filteredRandevular.map((item) => {
-          return axios
+          axios
             .delete(`http://localhost:3004/randevular/${item.id}`)
             .then((res) => {})
             .catch((err) => console.log(err));
@@ -112,7 +120,14 @@ const Patients = (props) => {
                 <TableCell>{hasta.phone}</TableCell>
                 <TableCell>
                   <Stack spacing={2} direction="row">
-                    <Button variant="outlined" color="primary">
+                    <Button
+                      onClick={() => {
+                        setOpenEditModal(true);
+                        setSelectedHasta(hasta);
+                      }}
+                      variant="outlined"
+                      color="primary"
+                    >
                       Düzenle
                     </Button>
                     <Button
@@ -132,8 +147,16 @@ const Patients = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <EditHastaModal
+        updateComponent={updateComponent}
+        setUpdateComponent={setUpdateComponent}
+        hastalar={hastalar}
+        hasta={selectedHasta}
+        open={openEditModal}
+        handleClose={handleClose}
+      />
     </div>
   );
 };
 
-export default Patients;
+export default Hastalar;

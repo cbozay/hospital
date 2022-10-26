@@ -1,42 +1,5 @@
 {
-  "randevular": [
-    {
-      "id": "1666630801214",
-      "date": "2022-10-20T20:00",
-      "hastaId": "1666630801212"
-    },
-    {
-      "id": "1666630826907",
-      "date": "2022-10-20T22:05",
-      "hastaId": "1666630801212"
-    }
-  ],
-  "hastalar": [
-    {
-      "id": "1666630801212",
-      "name": "Ahmet",
-      "surname": "Gündoğan",
-      "phone": "05555555557",
-      "islemIds": [
-        "1666630801213",
-        "1666630826906"
-      ]
-    }
-  ],
-  "islemler": [
-    {
-      "id": [
-        "1666630801213"
-      ],
-      "sikayet": "sırt ağrısı",
-      "uygulananTedavi": "",
-      "yazilacakIlaclar": []
-    },
-    {
-      "id": "1666630826906",
-      "sikayet": "mide ağrısı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    }
-  ]
+  "randevular": [],
+  "hastalar": [],
+  "islemler": []
 }
