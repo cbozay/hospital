@@ -16,14 +16,20 @@ const HastaEkle = (props) => {
   const [sikayet, setSikayet] = useState("");
   const [hastalar, setHastalar] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3004/hastalar")
-      .then((res) => {
-        setHastalar(res.data);
-      })
-      .catch((err) => console.log("HastaEkle sayfası getHastalar err", err));
-  }, []);
+  useEffect(
+    () =>
+      async function fetchData() {
+        await axios
+          .get("http://localhost:3004/hastalar")
+          .then((res) => {
+            setHastalar(res.data);
+          })
+          .catch((err) =>
+            console.log("HastaEkle sayfası getHastalar err", err)
+          );
+      },
+    []
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();

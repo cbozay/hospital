@@ -17,16 +17,20 @@ const RandevuEkle = (props) => {
   const [hastalar, setHastalar] = useState(null);
   const [hasHasta, setHasHasta] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3004/hastalar")
-      .then((res) => {
-        setHastalar(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(
+    () =>
+      async function fetchData() {
+        await axios
+          .get("http://localhost:3004/hastalar")
+          .then((res) => {
+            setHastalar(res.data);
+          })
+          .catch((err) => console.log(err));
+      },
+    []
+  );
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(date);
     if (
@@ -59,19 +63,19 @@ const RandevuEkle = (props) => {
         ...hasHasta,
         islemIds: [...hasHasta.islemIds, newIslem.id],
       };
-      axios
+      await axios
         .post("http://localhost:3004/randevular", newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
         })
         .catch((err) => console.log(err));
-      axios
+      await axios
         .post("http://localhost:3004/islemler", newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
         })
         .catch((err) => console.log(err));
-      axios
+      await axios
         .put(`http://localhost:3004/hastalar/${hasHasta.id}`, updatedHasta)
         .then((res) => {
           console.log("hasta update", res);
@@ -97,20 +101,20 @@ const RandevuEkle = (props) => {
         date: date,
         hastaId: newHasta.id,
       };
-      axios
+      await axios
         .post("http://localhost:3004/randevular", newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
         })
         .catch((err) => console.log(err));
-      axios
+      await axios
         .post("http://localhost:3004/islemler", newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
         })
         .catch((err) => console.log(err));
 
-      axios
+      await axios
         .post("http://localhost:3004/hastalar", newHasta)
         .then((res) => {
           console.log("hasta kayıt", res);
@@ -174,6 +178,7 @@ const RandevuEkle = (props) => {
             onChange={handlePhoneChange}
           />
         </div>
+
         <div
           style={{
             display: "flex",
@@ -192,6 +197,7 @@ const RandevuEkle = (props) => {
             disabled={hasHasta}
           />
         </div>
+
         <div
           style={{
             display: "flex",
@@ -210,6 +216,7 @@ const RandevuEkle = (props) => {
             disabled={hasHasta}
           />
         </div>
+
         <div
           style={{
             display: "flex",

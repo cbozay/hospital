@@ -71,6 +71,7 @@ const EditHastaModal = (props) => {
       }, 3000);
       return;
     }
+
     const filteredHastalar = hastalar.filter(
       (item) => item.phone !== hasta.phone
     );

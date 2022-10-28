@@ -28,47 +28,51 @@ const Hastalar = (props) => {
     setOpenEditModal(false);
   };
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3004/hastalar")
-      .then((res) => {
-        setHastalar(res.data);
-      })
-      .catch((err) => console.log("Hastalar page getHastalarErr", err));
-    axios
-      .get("http://localhost:3004/randevular")
-      .then((res) => {
-        setRandevular(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [updateComponent]);
+  useEffect(
+    () =>
+      async function fetchData() {
+        await axios
+          .get("http://localhost:3004/hastalar")
+          .then(async (res) => {
+            setHastalar(res.data);
+            axios
+              .get("http://localhost:3004/randevular")
+              .then((res) => {
+                setRandevular(res.data);
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log("Hastalar page getHastalarErr", err));
+      },
+    [updateComponent]
+  );
 
-  const handleDeleteHasta = (hasta) => {
+  const handleDeleteHasta = async (hasta) => {
     console.log(hasta);
     const filteredRandevular = randevular.filter(
       (item) => item.hastaId === hasta.id
     );
     console.log("filtrelenmiş randevular", filteredRandevular);
-    axios
+    await axios
       .delete(`http://localhost:3004/hastalar/${hasta.id}`)
       .then((deleteHastaRes) => {
-        hasta.islemIds.map((islemId) => {
-          axios
+        hasta.islemIds.map(async (islemId) => {
+          return await axios
             .delete(`http://localhost:3004/islemler/${islemId}`)
             .then((islemDeleteRes) => {})
             .catch((err) =>
               console.log("hastalar sayfası deleteIslem err", err)
             );
         });
-        filteredRandevular.map((item) => {
-          axios
+        filteredRandevular.map(async (item) => {
+          return await axios
             .delete(`http://localhost:3004/randevular/${item.id}`)
             .then((res) => {})
             .catch((err) => console.log(err));
         });
         setUpdateComponent(!updateComponent);
       })
-      .catch((err) => console.log("hasatalar sayfası hastaDelete err", err));
+      .catch((err) => console.log("hastalar sayfası hastaDelete err", err));
   };
 
   if (hastalar === null || randevular === null) {

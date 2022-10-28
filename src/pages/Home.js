@@ -16,20 +16,24 @@ const Home = () => {
   const [randevular, setRandevular] = useState(null);
   const [hastalar, setHastalar] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3004/randevular")
-      .then((resRandevular) => {
-        setRandevular(resRandevular.data);
-        axios
+  useEffect(
+    () =>
+      async function () {
+        await axios
+          .get("http://localhost:3004/randevular")
+          .then((resRandevular) => {
+            setRandevular(resRandevular.data);
+          })
+          .catch((err) => console.log("randevular hata", err));
+        await axios
           .get("http://localhost:3004/hastalar")
           .then((resHastalar) => {
             setHastalar(resHastalar.data);
           })
           .catch((err) => console.log("hastalar hata", err));
-      })
-      .catch((err) => console.log("randevular hata", err));
-  }, []);
+      },
+    []
+  );
 
   if (randevular === null || hastalar === null) {
     return <h1>Loading...</h1>;
@@ -73,11 +77,11 @@ const Home = () => {
                   }}
                 >
                   <TableCell component="th" scope="row">
-                    {new Date(randevu.date).toLocaleString()}
+                    {new Date(randevu?.date).toLocaleString()}
                   </TableCell>
-                  <TableCell>{aradigimHasta.name}</TableCell>
-                  <TableCell>{aradigimHasta.surname}</TableCell>
-                  <TableCell>{aradigimHasta.phone}</TableCell>
+                  <TableCell>{aradigimHasta?.name}</TableCell>
+                  <TableCell>{aradigimHasta?.surname}</TableCell>
+                  <TableCell>{aradigimHasta?.phone}</TableCell>
                   <TableCell>butonlar gelecek</TableCell>
                 </TableRow>
               );
