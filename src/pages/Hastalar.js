@@ -23,6 +23,7 @@ const Hastalar = (props) => {
   const [randevular, setRandevular] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
+  const [islemler, setIslemler] = useState(null);
 
   const handleClose = () => {
     setOpenEditModal(false);
@@ -49,14 +50,12 @@ const Hastalar = (props) => {
 
   const handleDeleteHasta = async (hasta) => {
     console.log(hasta);
-    const filteredRandevular = randevular.filter(
-      (item) => item.hastaId === hasta.id
-    );
-    console.log("filtrelenmiş randevular", filteredRandevular);
+
     await axios
       .delete(`http://localhost:3004/hastalar/${hasta.id}`)
       .then((deleteHastaRes) => {
         hasta.islemIds.map(async (islemId) => {
+          console.log(">>>Hasta islem id  :", islemId);
           return await axios
             .delete(`http://localhost:3004/islemler/${islemId}`)
             .then((islemDeleteRes) => {})
@@ -64,6 +63,9 @@ const Hastalar = (props) => {
               console.log("hastalar sayfası deleteIslem err", err)
             );
         });
+        const filteredRandevular = randevular.filter(
+          (item) => item.hastaId === hasta.id
+        );
         filteredRandevular.map(async (item) => {
           return await axios
             .delete(`http://localhost:3004/randevular/${item.id}`)
@@ -141,7 +143,11 @@ const Hastalar = (props) => {
                     >
                       Sil
                     </Button>
-                    <Button variant="outlined" color="secondary">
+                    <Button
+                      onClick={() => navigate(`/detaylar/${hasta.id}`)}
+                      variant="outlined"
+                      color="secondary"
+                    >
                       Detaylar
                     </Button>
                   </Stack>

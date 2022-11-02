@@ -1,5 +1,120 @@
 {
-  "randevular": [],
-  "hastalar": [],
-  "islemler": []
+  "randevular": [
+    {
+      "id": "1667204201797",
+      "date": "2022-10-20T11:16",
+      "hastaId": "1667204201796"
+    },
+    {
+      "id": "1667233266648",
+      "date": "2022-10-11T19:20",
+      "hastaId": "1667233266647"
+    },
+    {
+      "id": "1667233280893",
+      "date": "2022-10-05T19:21",
+      "hastaId": "1667233280892"
+    },
+    {
+      "id": "1667233289536",
+      "date": "2022-10-25T19:21",
+      "hastaId": "1667233289535"
+    },
+    {
+      "id": "1667233305679",
+      "date": "2022-09-29T19:21",
+      "hastaId": "1667233305678"
+    },
+    {
+      "id": "1667238432907",
+      "date": "2022-10-11T20:47",
+      "hastaId": "1667204201796"
+    }
+  ],
+  "hastalar": [
+    {
+      "id": "1667204201796",
+      "name": "Çağatay",
+      "surname": "Bozay",
+      "islemIds": [
+        "1667204201795",
+        "1667238432908"
+      ],
+      "phone": "05555555557"
+    },
+    {
+      "id": "1667233266647",
+      "name": "wergr",
+      "surname": "Levent",
+      "islemIds": [
+        "1667233266646"
+      ],
+      "phone": "05555555556"
+    },
+    {
+      "id": "1667233280892",
+      "name": "Çağatay",
+      "surname": "Bozay",
+      "islemIds": [
+        "1667233280891"
+      ],
+      "phone": "05555555554"
+    },
+    {
+      "id": "1667233289535",
+      "name": "sdsd",
+      "surname": "Kenan",
+      "islemIds": [
+        "1667233289534"
+      ],
+      "phone": "05555555559"
+    },
+    {
+      "id": "1667233305678",
+      "name": "Kenan",
+      "surname": "Komutan",
+      "islemIds": [
+        "1667233305677"
+      ],
+      "phone": "05555555551"
+    }
+  ],
+  "islemler": [
+    {
+      "id": "1667204201795",
+      "sikayet": "efsefwef",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1667233266646",
+      "sikayet": "baş dönmesi",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1667233280891",
+      "sikayet": "efsefwef",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1667233289534",
+      "sikayet": "efsefwef",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1667233305677",
+      "sikayet": "sırt ağrısı",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1667238432908",
+      "sikayet": "sdzascasdfasd",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    }
+  ]
 }
