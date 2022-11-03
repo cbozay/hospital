@@ -1,11 +1,6 @@
 {
   "randevular": [
     {
-      "id": "1667204201797",
-      "date": "2022-10-20T11:16",
-      "hastaId": "1667204201796"
-    },
-    {
       "id": "1667233266648",
       "date": "2022-10-11T19:20",
       "hastaId": "1667233266647"
@@ -16,32 +11,27 @@
       "hastaId": "1667233280892"
     },
     {
-      "id": "1667233289536",
-      "date": "2022-10-25T19:21",
-      "hastaId": "1667233289535"
+      "id": "1667493553870",
+      "date": "2022-11-23T22:42",
+      "hastaId": "1667493553869"
     },
     {
-      "id": "1667233305679",
-      "date": "2022-09-29T19:21",
-      "hastaId": "1667233305678"
+      "id": "1667493645043",
+      "date": "2022-11-23T22:42",
+      "hastaId": "1667493553869"
     },
     {
-      "id": "1667238432907",
-      "date": "2022-10-11T20:47",
-      "hastaId": "1667204201796"
+      "id": "1667493752856",
+      "date": "2022-11-23T22:42",
+      "hastaId": "1667493553869"
+    },
+    {
+      "id": "1667499984724",
+      "date": "2022-11-21T22:42",
+      "hastaId": "1667499984723"
     }
   ],
   "hastalar": [
-    {
-      "id": "1667204201796",
-      "name": "Çağatay",
-      "surname": "Bozay",
-      "islemIds": [
-        "1667204201795",
-        "1667238432908"
-      ],
-      "phone": "05555555557"
-    },
     {
       "id": "1667233266647",
       "name": "wergr",
@@ -61,58 +51,60 @@
       "phone": "05555555554"
     },
     {
-      "id": "1667233289535",
+      "id": "1667493553869",
+      "name": "wergr",
+      "surname": "Ahmet",
+      "islemIds": [
+        "1667493553868",
+        "1667493645044",
+        "1667493752857"
+      ],
+      "phone": "05555555550"
+    },
+    {
+      "id": "1667499984723",
       "name": "sdsd",
       "surname": "Kenan",
       "islemIds": [
-        "1667233289534"
+        "1667499984722"
       ],
       "phone": "05555555559"
-    },
-    {
-      "id": "1667233305678",
-      "name": "Kenan",
-      "surname": "Komutan",
-      "islemIds": [
-        "1667233305677"
-      ],
-      "phone": "05555555551"
     }
   ],
   "islemler": [
     {
-      "id": "1667204201795",
-      "sikayet": "efsefwef",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
+      "id": "1667233266646",
+      "sikayet": "baş dönmesi",
+      "uygulananTedavi": "wergr",
+      "yazilanIlaclar": "sdsd"
     },
     {
-      "id": "1667233266646",
+      "id": "1667233280891",
+      "sikayet": "efsefwef",
+      "uygulananTedavi": "efsefwef",
+      "yazilanIlaclar": "efsefwef"
+    },
+    {
+      "id": "1667493553868",
       "sikayet": "baş dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1667233280891",
-      "sikayet": "efsefwef",
+      "id": "1667493645044",
+      "sikayet": "baş dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1667233289534",
-      "sikayet": "efsefwef",
+      "id": "1667493752857",
+      "sikayet": "baş dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1667233305677",
-      "sikayet": "sırt ağrısı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1667238432908",
-      "sikayet": "sdzascasdfasd",
+      "id": "1667499984722",
+      "sikayet": "baş dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     }

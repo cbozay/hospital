@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 
+import AddTedaviModal from "../components/AddTedaviModal";
+
 const Detaylar = () => {
   const { hastaDetayId } = useParams();
   const [hasta, setHasta] = useState(null);
   // const [islemler, setIslemler] = useState(null);
   const [hastaIslemleri, setHastaIslemleri] = useState([]);
+  const [buttonHandler, setButtonHandler] = useState(false);
+  const [hastaIslem, setHastaIslem] = useState("");
 
   useEffect(() => {
     axios
@@ -49,7 +53,7 @@ const Detaylar = () => {
           });
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [buttonHandler]);
 
   // console.log("hastaIslemleri", hastaIslemleri);
 
@@ -112,23 +116,37 @@ const Detaylar = () => {
                 <div>
                   <span style={{ fontWeight: "bold" }}>Yazılan İlaçlar: </span>
                   {hastaIslemi.yazilanIlaclar.length
-                    ? hastaIslemi.yazilanIlaclar
+                    ? hastaIslemi.yazilanIlaclar + ","
                     : "-"}
                 </div>
                 {hastaIslemi.uygulananTedavi ||
                 hastaIslemi.yazilanIlaclar.length ? (
                   ""
                 ) : (
-                  <button style={{ fontSize: "15px" }}>
+                  <button
+                    onClick={() => {
+                      setButtonHandler(true);
+                      setHastaIslem(hastaIslemi);
+                    }}
+                    style={{ fontSize: "15px" }}
+                    className="btn btn-sm btn-outline-primary"
+                  >
                     Tedavi & İlaç Ekle
                   </button>
                 )}
-                <button style={{ fontSize: "15px" }}>Tedavi & İlaç Ekle</button>
               </div>
             </div>
           </h4>
         );
       })}
+
+      <AddTedaviModal
+        open={buttonHandler}
+        handleClose={() => setButtonHandler(false)}
+        hastaIslemi={hastaIslem}
+        setButtonHandler={() => setButtonHandler(false)}
+      />
+
       {/* {hasta.islemIds.map((islemId) => {
         const searchedIslemId = islemler.find((item) => item.id === islemId);
         console.log(">>searchedIslemId  ", searchedIslemId);
