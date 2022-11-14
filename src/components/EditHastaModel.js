@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField, Modal, Box } from "@mui/material";
-
-import axios from "axios";
+import { api } from "../api/api";
+import { url } from "../api/url";
 
 const style = {
   position: "absolute",
@@ -87,8 +87,8 @@ const EditHastaModal = (props) => {
       surname: surname,
       phone: phone,
     };
-    axios
-      .put(`http://localhost:3004/hastalar/${hasta.id}`, updatedHasta)
+    api
+      .put(url.hastalar + "/" + hasta.id, updatedHasta)
       .then((response) => {
         handleClose();
         setUpdateComponent(!updateComponent);

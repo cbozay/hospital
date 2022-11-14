@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, TextField, Modal, Box } from "@mui/material";
-
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { api } from "../api/api";
+import { url } from "../api/url";
 
 const style = {
   position: "absolute",
@@ -33,8 +32,8 @@ const AddTedaviModal = (props) => {
       uygulananTedavi: tedavi,
       yazilanIlaclar: ilac,
     };
-    axios
-      .put(`http://localhost:3004/islemler/${hastaIslemi.id}`, EklenenTedavi)
+    api
+      .put(url.islemler + "/" + hastaIslemi.id, EklenenTedavi)
       .then((res) => {
         setButtonHandler(false);
       })

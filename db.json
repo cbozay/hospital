@@ -1,31 +1,6 @@
 {
   "randevular": [
     {
-      "id": "1667233266648",
-      "date": "2022-10-11T19:20",
-      "hastaId": "1667233266647"
-    },
-    {
-      "id": "1667233280893",
-      "date": "2022-10-05T19:21",
-      "hastaId": "1667233280892"
-    },
-    {
-      "id": "1667493553870",
-      "date": "2022-11-23T22:42",
-      "hastaId": "1667493553869"
-    },
-    {
-      "id": "1667493645043",
-      "date": "2022-11-23T22:42",
-      "hastaId": "1667493553869"
-    },
-    {
-      "id": "1667493752856",
-      "date": "2022-11-23T22:42",
-      "hastaId": "1667493553869"
-    },
-    {
       "id": "1667499984724",
       "date": "2022-11-21T22:42",
       "hastaId": "1667499984723"
@@ -33,78 +8,19 @@
   ],
   "hastalar": [
     {
-      "id": "1667233266647",
-      "name": "wergr",
-      "surname": "Levent",
-      "islemIds": [
-        "1667233266646"
-      ],
-      "phone": "05555555556"
-    },
-    {
-      "id": "1667233280892",
-      "name": "Çağatay",
-      "surname": "Bozay",
-      "islemIds": [
-        "1667233280891"
-      ],
-      "phone": "05555555554"
-    },
-    {
-      "id": "1667493553869",
-      "name": "wergr",
-      "surname": "Ahmet",
-      "islemIds": [
-        "1667493553868",
-        "1667493645044",
-        "1667493752857"
-      ],
-      "phone": "05555555550"
-    },
-    {
-      "id": "1667499984723",
+      "id": "1668418705858",
       "name": "sdsd",
-      "surname": "Kenan",
+      "surname": "adfdaf",
+      "phone": "05555555525",
       "islemIds": [
-        "1667499984722"
-      ],
-      "phone": "05555555559"
+        "1668418705517"
+      ]
     }
   ],
   "islemler": [
     {
-      "id": "1667233266646",
-      "sikayet": "baş dönmesi",
-      "uygulananTedavi": "wergr",
-      "yazilanIlaclar": "sdsd"
-    },
-    {
-      "id": "1667233280891",
-      "sikayet": "efsefwef",
-      "uygulananTedavi": "efsefwef",
-      "yazilanIlaclar": "efsefwef"
-    },
-    {
-      "id": "1667493553868",
-      "sikayet": "baş dönmesi",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1667493645044",
-      "sikayet": "baş dönmesi",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1667493752857",
-      "sikayet": "baş dönmesi",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1667499984722",
-      "sikayet": "baş dönmesi",
+      "id": "1668418705517",
+      "sikayet": "dvdfdf",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     }

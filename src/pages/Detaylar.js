@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
-
+import { api } from "../api/api";
+import { url } from "../api/url";
 import AddTedaviModal from "../components/AddTedaviModal";
 
 const Detaylar = () => {
@@ -14,12 +14,12 @@ const Detaylar = () => {
   const [hastaIslem, setHastaIslem] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3004/hastalar/${hastaDetayId}`)
+    api
+      .get(url.hastalar + "/" + hastaDetayId)
       .then((resHasta) => {
         setHasta(resHasta.data);
-        axios
-          .get("http://localhost:3004/islemler")
+        api
+          .get(url.islemler)
           .then((resIslem) => {
             // setIslemler(resIslem.data);
             // const tempHastaIslemleri = [];

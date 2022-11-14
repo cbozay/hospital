@@ -4,8 +4,8 @@ import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
-
-import axios from "axios";
+import { api } from "../api/api";
+import { url } from "../api/url";
 
 const RandevuEkle = (props) => {
   const navigate = useNavigate();
@@ -21,14 +21,14 @@ const RandevuEkle = (props) => {
   useEffect(
     () =>
       async function fetchData() {
-        await axios
-          .get("http://localhost:3004/hastalar")
+        await api
+          .get(url.hastalar)
           .then((res) => {
             setHastalar(res.data);
           })
           .catch((err) => console.log(err));
-        axios
-          .get("http://localhost:3004/randevular")
+        api
+          .get(url.randevular)
           .then((res) => {
             setRandevular(res.data);
           })
@@ -78,20 +78,20 @@ const RandevuEkle = (props) => {
         ...hasHasta,
         islemIds: [...hasHasta.islemIds, newIslem.id],
       };
-      await axios
-        .post("http://localhost:3004/randevular", newRandevu)
+      await api
+        .post(url.randevular, newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
         })
         .catch((err) => console.log(err));
-      await axios
-        .post("http://localhost:3004/islemler", newIslem)
+      await api
+        .post(url.islemler, newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
         })
         .catch((err) => console.log(err));
-      await axios
-        .put(`http://localhost:3004/hastalar/${hasHasta.id}`, updatedHasta)
+      await api
+        .put(url.hastalar + "/" + hasHasta.id, updatedHasta)
         .then((res) => {
           console.log("hasta update", res);
         })
@@ -116,21 +116,21 @@ const RandevuEkle = (props) => {
         date: date,
         hastaId: newHasta.id,
       };
-      await axios
-        .post("http://localhost:3004/randevular", newRandevu)
+      await api
+        .post(url.randevular, newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
         })
         .catch((err) => console.log(err));
-      await axios
-        .post("http://localhost:3004/islemler", newIslem)
+      await api
+        .post(url.islemler, newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
         })
         .catch((err) => console.log(err));
 
-      await axios
-        .post("http://localhost:3004/hastalar", newHasta)
+      await api
+        .post(url.hastalar, newHasta)
         .then((res) => {
           console.log("hasta kayıt", res);
         })

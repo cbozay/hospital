@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 
 import Header from "../components/Header";
 
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api } from "../api/api";
+import { url } from "../api/url";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ const HastaEkle = (props) => {
   useEffect(
     () =>
       async function fetchData() {
-        await axios
-          .get("http://localhost:3004/hastalar")
+        await api
+          .get(url.hastalar)
           .then((res) => {
             setHastalar(res.data);
           })
@@ -54,8 +55,8 @@ const HastaEkle = (props) => {
       uygulananTedavi: "",
       yazilanIlaclar: [],
     };
-    axios
-      .post("http://localhost:3004/islemler", newIslem)
+    api
+      .post(url.islemler, newIslem)
       .then((islemRes) => {
         const newHasta = {
           id: String(new Date().getTime()),
@@ -64,8 +65,8 @@ const HastaEkle = (props) => {
           phone: phone,
           islemIds: [newIslem.id],
         };
-        axios
-          .post("http://localhost:3004/hastalar", newHasta)
+        api
+          .post(url.hastalar, newHasta)
           .then((res) => {
             navigate("/hastalar");
           })

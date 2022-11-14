@@ -12,9 +12,9 @@ import Stack from "@mui/material/Stack";
 
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
-
 import EditHastaModal from "../components/EditHastaModel";
+import { api } from "../api/api";
+import { url } from "../api/url";
 
 const Hastalar = (props) => {
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const Hastalar = (props) => {
   const [randevular, setRandevular] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
-  const [islemler, setIslemler] = useState(null);
 
   const handleClose = () => {
     setOpenEditModal(false);
@@ -32,12 +31,12 @@ const Hastalar = (props) => {
   useEffect(
     () =>
       async function fetchData() {
-        await axios
-          .get("http://localhost:3004/hastalar")
+        await api
+          .get(url.hastalar)
           .then(async (res) => {
             setHastalar(res.data);
-            axios
-              .get("http://localhost:3004/randevular")
+            api
+              .get(url.hastalar)
               .then((res) => {
                 setRandevular(res.data);
               })
@@ -51,13 +50,13 @@ const Hastalar = (props) => {
   const handleDeleteHasta = async (hasta) => {
     console.log(hasta);
 
-    await axios
-      .delete(`http://localhost:3004/hastalar/${hasta.id}`)
+    await api
+      .delete(url.hastalar + "/" + hasta.id)
       .then((deleteHastaRes) => {
         hasta.islemIds.map(async (islemId) => {
           console.log(">>>Hasta islem id  :", islemId);
-          return await axios
-            .delete(`http://localhost:3004/islemler/${islemId}`)
+          return await api
+            .delete(url.islemler + "/" + islemId)
             .then((islemDeleteRes) => {})
             .catch((err) =>
               console.log("hastalar sayfası deleteIslem err", err)
@@ -67,8 +66,8 @@ const Hastalar = (props) => {
           (item) => item.hastaId === hasta.id
         );
         filteredRandevular.map(async (item) => {
-          return await axios
-            .delete(`http://localhost:3004/randevular/${item.id}`)
+          return await api
+            .delete(url.randevular + "/" + item.id)
             .then((res) => {})
             .catch((err) => console.log(err));
         });
