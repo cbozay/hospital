@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,17 +10,19 @@ import Header from "../components/Header";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
+import actionTypes from "../redux/actions/actionTypes";
 import { useNavigate } from "react-router-dom";
 
 import EditHastaModal from "../components/EditHastaModel";
 import { api } from "../api/api";
 import { url } from "../api/url";
+import { useDispatch, useSelector } from "react-redux";
 
 const Hastalar = (props) => {
+  const dispatch = useDispatch();
+  const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
-  const [hastalar, setHastalar] = useState(null);
   const [updateComponent, setUpdateComponent] = useState(false);
-  const [randevular, setRandevular] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
 
@@ -28,55 +30,47 @@ const Hastalar = (props) => {
     setOpenEditModal(false);
   };
 
-  useEffect(
-    () =>
-      async function fetchData() {
-        await api
-          .get(url.hastalar)
-          .then(async (res) => {
-            setHastalar(res.data);
-            api
-              .get(url.hastalar)
-              .then((res) => {
-                setRandevular(res.data);
-              })
-              .catch((err) => console.log(err));
-          })
-          .catch((err) => console.log("Hastalar page getHastalarErr", err));
-      },
-    [updateComponent]
-  );
-
   const handleDeleteHasta = async (hasta) => {
-    console.log(hasta);
+    console.log({ hasta });
 
-    await api
+    api
       .delete(url.hastalar + "/" + hasta.id)
       .then((deleteHastaRes) => {
+        dispatch({ type: actionTypes.DELETE_HASTA, payload: hasta.id });
+
         hasta.islemIds.map(async (islemId) => {
           console.log(">>>Hasta islem id  :", islemId);
           return await api
             .delete(url.islemler + "/" + islemId)
-            .then((islemDeleteRes) => {})
+            .then((islemDeleteRes) => {
+              dispatch({ type: actionTypes.DELETE_ISLEM, payload: islemId });
+            })
             .catch((err) =>
               console.log("hastalar sayfası deleteIslem err", err)
             );
         });
-        const filteredRandevular = randevular.filter(
+        const filteredRandevular = randevularState.randevular.filter(
           (item) => item.hastaId === hasta.id
         );
+
         filteredRandevular.map(async (item) => {
           return await api
             .delete(url.randevular + "/" + item.id)
-            .then((res) => {})
+            .then((res) => {
+              dispatch({
+                typa: actionTypes.DELETE_RANDEVU,
+                payload: item.id,
+              });
+            })
             .catch((err) => console.log(err));
         });
+
         setUpdateComponent(!updateComponent);
       })
       .catch((err) => console.log("hastalar sayfası hastaDelete err", err));
   };
 
-  if (hastalar === null || randevular === null) {
+  if (hastalarState.success !== true || randevularState.success !== true) {
     return <h1>Loading...</h1>;
   }
 
@@ -106,14 +100,14 @@ const Hastalar = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {hastalar.length === 0 && (
+            {hastalarState.hastalar.length === 0 && (
               <TableRow>
                 <TableCell align="center" colSpan={4}>
                   Kayıtlı Hasta Bulunmamaktadır
                 </TableCell>
               </TableRow>
             )}
-            {hastalar.map((hasta) => (
+            {hastalarState.hastalar.map((hasta) => (
               <TableRow
                 key={hasta.id}
                 sx={{
@@ -159,7 +153,7 @@ const Hastalar = (props) => {
       <EditHastaModal
         updateComponent={updateComponent}
         setUpdateComponent={setUpdateComponent}
-        hastalar={hastalar}
+        hastalar={hastalarState.hastalar}
         hasta={selectedHasta}
         open={openEditModal}
         handleClose={handleClose}

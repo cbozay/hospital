@@ -1,4 +1,4 @@
-export const actionTypes = {
+const actionTypes = {
   FETCH_HASTALAR_START: "FETCH_HASTALAR_START",
   FETCH_HASTALAR_SUCCESS: "FETCH_HASTALAR_SUCCESS",
   FETCH_HASTALAR_FAIL: "FETCH_HASTALAR_FAIL",
@@ -18,3 +18,5 @@ export const actionTypes = {
   DELETE_ISLEM: "DELETE_ISLEM",
   EDIT_ISLEM: "EDIT_ISLEM",
 };
+
+export default actionTypes;

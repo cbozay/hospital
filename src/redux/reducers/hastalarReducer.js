@@ -1,4 +1,4 @@
-import { actionTypes } from "../actions/actionTypes";
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
   start: false,
@@ -8,7 +8,7 @@ const initialState = {
   errorMessage: "",
 };
 
-export const hastalarReducer = (state = initialState, action) => {
+const hastalarReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_HASTALAR_START:
       return {
@@ -57,3 +57,5 @@ export const hastalarReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default hastalarReducer;

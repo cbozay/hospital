@@ -1,28 +1,5 @@
 {
-  "randevular": [
-    {
-      "id": "1667499984724",
-      "date": "2022-11-21T22:42",
-      "hastaId": "1667499984723"
-    }
-  ],
-  "hastalar": [
-    {
-      "id": "1668418705858",
-      "name": "sdsd",
-      "surname": "adfdaf",
-      "phone": "05555555525",
-      "islemIds": [
-        "1668418705517"
-      ]
-    }
-  ],
-  "islemler": [
-    {
-      "id": "1668418705517",
-      "sikayet": "dvdfdf",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    }
-  ]
+  "randevular": [],
+  "hastalar": [],
+  "islemler": []
 }

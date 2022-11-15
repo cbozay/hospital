@@ -1,4 +1,4 @@
-import { actionTypes } from "../actions/actionTypes";
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
   start: false,
@@ -8,7 +8,7 @@ const initialState = {
   errorMessage: "",
 };
 
-export const İslemlerReducer = (state = initialState, action) => {
+const İslemlerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_ISLEMLER_START:
       return {
@@ -50,3 +50,5 @@ export const İslemlerReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default İslemlerReducer;

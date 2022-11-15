@@ -99,7 +99,7 @@ const Detaylar = () => {
           <h4 key={index} className="d-flex justify-content-center">
             <div className="d-flex border" style={{ width: "500px" }}>
               <div style={{ fontWeight: "bold", color: "red" }}>
-                {index + 1 + "-"}{" "}
+                {index + 1 + "-"}
               </div>
 
               <div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
@@ -6,36 +6,20 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { api } from "../api/api";
 import { url } from "../api/url";
+import { useDispatch, useSelector } from "react-redux";
+import actionTypes from "../redux/actions/actionTypes";
 
 const RandevuEkle = (props) => {
+  const { hastalarState, randevularState } = useSelector((state) => state);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [date, setDate] = useState("");
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [sikayet, setSikayet] = useState("");
-  const [hastalar, setHastalar] = useState(null);
   const [hasHasta, setHasHasta] = useState(false);
-  const [randevular, setRandevular] = useState(null);
-
-  useEffect(
-    () =>
-      async function fetchData() {
-        await api
-          .get(url.hastalar)
-          .then((res) => {
-            setHastalar(res.data);
-          })
-          .catch((err) => console.log(err));
-        api
-          .get(url.randevular)
-          .then((res) => {
-            setRandevular(res.data);
-          })
-          .catch((err) => console.log(err));
-      },
-    []
-  );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,7 +35,9 @@ const RandevuEkle = (props) => {
       return;
     }
 
-    const searchedDate = randevular.find((item) => item.date === date);
+    const searchedDate = randevularState.randevular.find(
+      (item) => item.date === date
+    );
 
     if (searchedDate) {
       alert("Bu hastaya ait bir randevu zaten mevcuttur.!");
@@ -82,21 +68,26 @@ const RandevuEkle = (props) => {
         .post(url.randevular, newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
+          dispatch({ type: actionTypes.ADD_RANDEVU, payload: newRandevu });
         })
         .catch((err) => console.log(err));
       await api
         .post(url.islemler, newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
+          dispatch({ type: actionTypes.ADD_ISLEM, payload: newIslem });
         })
         .catch((err) => console.log(err));
       await api
         .put(url.hastalar + "/" + hasHasta.id, updatedHasta)
         .then((res) => {
           console.log("hasta update", res);
+          dispatch({ type: actionTypes.EDIT_HASTA, payload: updatedHasta });
         })
         .catch((err) => console.log(err));
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } else {
       const newIslem = {
         id: String(new Date().getTime()),
@@ -120,12 +111,14 @@ const RandevuEkle = (props) => {
         .post(url.randevular, newRandevu)
         .then((res) => {
           console.log("randevu kayıt", res);
+          dispatch({ type: actionTypes.ADD_RANDEVU, payload: newRandevu });
         })
         .catch((err) => console.log(err));
       await api
         .post(url.islemler, newIslem)
         .then((res) => {
           console.log("işlem kayıt", res);
+          dispatch({ type: actionTypes.ADD_ISLEM, payload: newIslem });
         })
         .catch((err) => console.log(err));
 
@@ -133,15 +126,18 @@ const RandevuEkle = (props) => {
         .post(url.hastalar, newHasta)
         .then((res) => {
           console.log("hasta kayıt", res);
+          dispatch({ type: actionTypes.ADD_HASTA, payload: newHasta });
         })
         .catch((err) => console.log(err));
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     }
   };
 
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
-    const arananHasta = hastalar.find(
+    const arananHasta = hastalarState.hastalar.find(
       (item) => item.phone === String(event.target.value)
     );
     if (arananHasta !== undefined) {
@@ -155,7 +151,7 @@ const RandevuEkle = (props) => {
     }
   };
 
-  if (hastalar === null || randevular === null) {
+  if (hastalarState.success !== true || randevularState.success !== true) {
     return <h1>Loading...</h1>;
   }
   return (
@@ -171,7 +167,7 @@ const RandevuEkle = (props) => {
         >
           <input
             value={date}
-            defaultValue={new Date("dd/mm/yyyy hh:mm")}
+            // defaultValue={new Date("dd/mm/yyyy hh:mm")}
             onChange={(event) => setDate(event.target.value)}
             type={"datetime-local"}
           />
