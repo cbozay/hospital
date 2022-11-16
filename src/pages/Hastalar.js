@@ -58,7 +58,7 @@ const Hastalar = (props) => {
             .delete(url.randevular + "/" + item.id)
             .then((res) => {
               dispatch({
-                typa: actionTypes.DELETE_RANDEVU,
+                type: actionTypes.DELETE_RANDEVU,
                 payload: item.id,
               });
             })

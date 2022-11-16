@@ -1,5 +1,12 @@
 {
   "randevular": [],
   "hastalar": [],
-  "islemler": []
+  "islemler": [
+    {
+      "id": "1668586904488",
+      "sikayet": "sdsd",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    }
+  ]
 }

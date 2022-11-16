@@ -7,30 +7,18 @@ import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import { url } from "../api/url";
+import { useDispatch, useSelector } from "react-redux";
+import actionTypes from "../redux/actions/actionTypes";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
+  const { hastalarState } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [sikayet, setSikayet] = useState("");
-  const [hastalar, setHastalar] = useState(null);
-
-  useEffect(
-    () =>
-      async function fetchData() {
-        await api
-          .get(url.hastalar)
-          .then((res) => {
-            setHastalar(res.data);
-          })
-          .catch((err) =>
-            console.log("HastaEkle sayfası getHastalar err", err)
-          );
-      },
-    []
-  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +30,9 @@ const HastaEkle = (props) => {
       alert("Telefon numarası 11 haneli olmalıdır!");
       return;
     }
-    const hasNumber = hastalar.find((hasta) => hasta.phone === phone);
+    const hasNumber = hastalarState.hastalar.find(
+      (hasta) => hasta.phone === phone
+    );
 
     if (hasNumber !== undefined) {
       alert("Bu numarayla kayıtlı bir hasta zaten vardır!");
@@ -58,6 +48,7 @@ const HastaEkle = (props) => {
     api
       .post(url.islemler, newIslem)
       .then((islemRes) => {
+        dispatch({ type: actionTypes.ADD_ISLEM, payload: newIslem });
         const newHasta = {
           id: String(new Date().getTime()),
           name: name,
@@ -68,6 +59,7 @@ const HastaEkle = (props) => {
         api
           .post(url.hastalar, newHasta)
           .then((res) => {
+            dispatch({ type: actionTypes.ADD_HASTA, payload: newHasta });
             navigate("/hastalar");
           })
           .catch((err) => console.log("HastaEkle sayfası postHasta err", err));
@@ -75,7 +67,7 @@ const HastaEkle = (props) => {
       .catch((err) => console.log("HastaEkle sayfası postIslem err", err));
   };
 
-  if (hastalar === null) {
+  if (hastalarState.success !== true) {
     return <h1>Loading...</h1>;
   }
 

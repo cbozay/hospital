@@ -85,6 +85,7 @@ const RandevuEkle = (props) => {
           dispatch({ type: actionTypes.EDIT_HASTA, payload: updatedHasta });
         })
         .catch((err) => console.log(err));
+      // Json-server düşmesin diye yazıldı
       setTimeout(() => {
         navigate("/");
       }, 1000);

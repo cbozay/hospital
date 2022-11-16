@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, TextField, Modal, Box } from "@mui/material";
 import { api } from "../api/api";
 import { url } from "../api/url";
+import { useDispatch } from "react-redux";
+import actionTypes from "../redux/actions/actionTypes";
 
 const style = {
   position: "absolute",
@@ -16,6 +18,7 @@ const style = {
 
 const AddTedaviModal = (props) => {
   const { open, handleClose, hastaIslemi, setButtonHandler } = props;
+  const dispatch = useDispatch();
   const [tedavi, setTedavi] = useState("");
   const [ilac, setIlac] = useState("");
   //   const[updatedTedavi, setUpdatedTedavi] = useState(false);
@@ -35,6 +38,7 @@ const AddTedaviModal = (props) => {
     api
       .put(url.islemler + "/" + hastaIslemi.id, EklenenTedavi)
       .then((res) => {
+        dispatch({ type: actionTypes.EDIT_ISLEM, payload: EklenenTedavi });
         setButtonHandler(false);
       })
       .catch((err) => console.log(err));

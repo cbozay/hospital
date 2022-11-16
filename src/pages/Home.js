@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,34 +8,13 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { api } from "../api/api";
-import { url } from "../api/url";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
-  const [randevular, setRandevular] = useState(null);
-  const [hastalar, setHastalar] = useState(null);
 
-  useEffect(
-    () =>
-      async function () {
-        await api
-          .get(url.randevular)
-          .then((resRandevular) => {
-            setRandevular(resRandevular.data);
-          })
-          .catch((err) => console.log("randevular hata", err));
-        await api
-          .get(url.hastalar)
-          .then((resHastalar) => {
-            setHastalar(resHastalar.data);
-          })
-          .catch((err) => console.log("hastalar hata", err));
-      },
-    []
-  );
-
-  if (randevular === null || hastalar === null) {
+  if (randevularState.success !== true || hastalarState.success !== true) {
     return <h1>Loading...</h1>;
   }
 
@@ -66,8 +44,8 @@ const Home = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {randevular.map((randevu) => {
-              const aradigimHasta = hastalar.find(
+            {randevularState.randevular.map((randevu) => {
+              const aradigimHasta = hastalarState.hastalar.find(
                 (hasta) => hasta.id === randevu.hastaId
               );
               return (
