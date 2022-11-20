@@ -14,6 +14,10 @@ const Home = () => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
 
+  const sortedRandevular = randevularState.randevular.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+
   if (randevularState.success !== true || hastalarState.success !== true) {
     return <h1>Loading...</h1>;
   }
@@ -44,10 +48,11 @@ const Home = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {randevularState.randevular.map((randevu) => {
+            {sortedRandevular.map((randevu) => {
               const aradigimHasta = hastalarState.hastalar.find(
                 (hasta) => hasta.id === randevu.hastaId
               );
+
               return (
                 <TableRow
                   key={randevu.id}

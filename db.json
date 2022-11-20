@@ -1,12 +1,73 @@
 {
-  "randevular": [],
-  "hastalar": [],
+  "randevular": [
+    {
+      "id": "1668942660959",
+      "date": "2022-11-16T14:10",
+      "hastaId": "1668942660958"
+    },
+    {
+      "id": "1668943180921",
+      "date": "2022-12-06T14:19",
+      "hastaId": "1668943180920"
+    },
+    {
+      "id": "1668943458974",
+      "date": "2022-11-23T14:24",
+      "hastaId": "1668943458973"
+    },
+    {
+      "id": "1668943865791",
+      "date": "2022-11-16T14:31",
+      "hastaId": "1668942660958"
+    }
+  ],
+  "hastalar": [
+    {
+      "id": "1668942660958",
+      "name": "sdsd",
+      "surname": "Kenan",
+      "islemIds": ["1668942660957", "1668943865792"],
+      "phone": "05555555559"
+    },
+    {
+      "id": "1668943180920",
+      "name": "wergr",
+      "surname": "Ahmet",
+      "islemIds": ["1668943180919"],
+      "phone": "05555555557"
+    },
+    {
+      "id": "1668943458973",
+      "name": "efwefe",
+      "surname": "Levent",
+      "islemIds": ["1668943458972"],
+      "phone": "05555555554"
+    }
+  ],
   "islemler": [
     {
-      "id": "1668586904488",
+      "id": "1668942660957",
+      "sikayet": "wergr",
+      "uygulananTedavi": "wergr",
+      "yazilanIlaclar": "baş dönmesi"
+    },
+    {
+      "id": "1668943180919",
+      "sikayet": "baş dönmesi",
+      "uygulananTedavi": "baş dönmesi",
+      "yazilanIlaclar": "baş dönmesi"
+    },
+    {
+      "id": "1668943458972",
       "sikayet": "sdsd",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
+      "uygulananTedavi": "sırt ağrısı",
+      "yazilanIlaclar": "efsefwef"
+    },
+    {
+      "id": "1668943865792",
+      "sikayet": "sdsd",
+      "uygulananTedavi": "sdsd",
+      "yazilanIlaclar": "sdsd"
     }
   ]
 }

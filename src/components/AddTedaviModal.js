@@ -17,11 +17,10 @@ const style = {
 };
 
 const AddTedaviModal = (props) => {
-  const { open, handleClose, hastaIslemi, setButtonHandler } = props;
+  const { open, handleClose, hastaIslemi } = props;
   const dispatch = useDispatch();
   const [tedavi, setTedavi] = useState("");
   const [ilac, setIlac] = useState("");
-  //   const[updatedTedavi, setUpdatedTedavi] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +38,7 @@ const AddTedaviModal = (props) => {
       .put(url.islemler + "/" + hastaIslemi.id, EklenenTedavi)
       .then((res) => {
         dispatch({ type: actionTypes.EDIT_ISLEM, payload: EklenenTedavi });
-        setButtonHandler(false);
+        handleClose();
       })
       .catch((err) => console.log(err));
   };

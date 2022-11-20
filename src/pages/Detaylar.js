@@ -4,11 +4,12 @@ import Header from "../components/Header";
 import { api } from "../api/api";
 import { url } from "../api/url";
 import AddTedaviModal from "../components/AddTedaviModal";
+import { useSelector } from "react-redux";
 
 const Detaylar = () => {
   const { hastaDetayId } = useParams();
+  const { islemlerState } = useSelector((state) => state);
   const [hasta, setHasta] = useState(null);
-  // const [islemler, setIslemler] = useState(null);
   const [hastaIslemleri, setHastaIslemleri] = useState([]);
   const [buttonHandler, setButtonHandler] = useState(false);
   const [hastaIslem, setHastaIslem] = useState("");
@@ -53,16 +54,7 @@ const Detaylar = () => {
           });
       })
       .catch((err) => console.log(err));
-  }, [buttonHandler]);
-
-  // console.log("hastaIslemleri", hastaIslemleri);
-
-  // hasta.islemIds.map((hastaIslemId) => {
-  //   const searchedIslemId = islemler.find((islem) => islem.id === hastaIslemId);
-  //   console.log(">>> searchedIslemId", searchedIslemId);
-  //   // setSearchedIslemId([...searchedIslemId]);
-  // });
-  // console.log(hasta.islemIds);
+  }, [islemlerState.islemler]);
 
   if (hasta === null) {
     <h1>Loading...</h1>;
@@ -93,8 +85,6 @@ const Detaylar = () => {
       <hr />
 
       {hastaIslemleri.map((hastaIslemi, index) => {
-        // console.log("hastaIslemi", hastaIslemi);
-        // console.log("hastaIslemleri", hastaIslemleri);
         return (
           <h4 key={index} className="d-flex justify-content-center">
             <div className="d-flex border" style={{ width: "500px" }}>
@@ -144,14 +134,7 @@ const Detaylar = () => {
         open={buttonHandler}
         handleClose={() => setButtonHandler(false)}
         hastaIslemi={hastaIslem}
-        setButtonHandler={() => setButtonHandler(false)}
       />
-
-      {/* {hasta.islemIds.map((islemId) => {
-        const searchedIslemId = islemler.find((item) => item.id === islemId);
-        console.log(">>searchedIslemId  ", searchedIslemId);
-        return <div key={islemId}></div>;
-      })} */}
     </div>
   );
 };
