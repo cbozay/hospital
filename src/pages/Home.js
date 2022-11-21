@@ -9,10 +9,28 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
+
+  //   WARNING:It has been made possible the automatic control mechanism
+  // to realize refreshment of the page one time within 1 second.
+  // So componentWillUpdate has been realized through setInterval function.
+  // In order to be able to realize componentWillUnmount(as left from page),
+  // function clearInterval() has been returned. The reason of
+  // componentWillUnmount is that we do not want to continue the check process
+  // as we leave the page.
+  const [checkDate, setCheckDate] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCheckDate(new Date());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const sortedRandevular = randevularState.randevular.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
@@ -53,8 +71,18 @@ const Home = () => {
                 (hasta) => hasta.id === randevu.hastaId
               );
 
+              var appointmentDate = new Date(randevu.date);
+              if (checkDate.getTime() > appointmentDate.getTime()) {
+                return false;
+              }
+
               return (
                 <TableRow
+                  style={{
+                    backgroundColor:
+                      appointmentDate.getTime() - checkDate.getTime() <=
+                        300000 && "yellow",
+                  }}
                   key={randevu.id}
                   sx={{
                     "&:last-child td, &:last-child th": { border: 0 },
