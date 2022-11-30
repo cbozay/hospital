@@ -89,6 +89,16 @@
       "id": "1669052772288",
       "date": "2022-11-21T20:52",
       "hastaId": "1668943458973"
+    },
+    {
+      "id": "1669835212428",
+      "date": "2022-11-09T22:06",
+      "hastaId": "1669835212427"
+    },
+    {
+      "id": "1669835256354",
+      "date": "2022-12-16T22:07",
+      "hastaId": "1669835256353"
     }
   ],
   "hastalar": [
@@ -132,6 +142,33 @@
         "1669052772289"
       ],
       "phone": "05555555554"
+    },
+    {
+      "id": "1669832818203",
+      "name": "tyjtyjtyjt",
+      "surname": "srdfsrfs",
+      "islemIds": [
+        "1669832818202"
+      ],
+      "phone": "05555555558"
+    },
+    {
+      "id": "1669835212427",
+      "name": "Çağatay",
+      "surname": "Bozay",
+      "islemIds": [
+        "1669835212426"
+      ],
+      "phone": "05555555552"
+    },
+    {
+      "id": "1669835256353",
+      "name": "sdsd",
+      "surname": "Kenan",
+      "islemIds": [
+        "1669835256352"
+      ],
+      "phone": "05555555551"
     }
   ],
   "islemler": [
@@ -180,8 +217,8 @@
     {
       "id": "1668966188716",
       "sikayet": "efsefwef",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
+      "uygulananTedavi": "sdsd",
+      "yazilanIlaclar": "sdsd"
     },
     {
       "id": "1668966221915",
@@ -240,6 +277,24 @@
     {
       "id": "1669052772289",
       "sikayet": "sdsd",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1669832818202",
+      "sikayet": "baş dönmesi",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1669835212426",
+      "sikayet": "sırt ağrısı",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1669835256352",
+      "sikayet": "efsefwef",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     }

@@ -7,13 +7,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { Stack } from "@mui/material";
+import { api } from "../api/api";
+import { url } from "../api/url";
+import actionTypes from "../redux/actions/actionTypes";
 
 const Home = () => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
 
   //   WARNING:It has been made possible the automatic control mechanism
   // to realize refreshment of the page one time within 1 second.
@@ -35,6 +41,17 @@ const Home = () => {
   const sortedRandevular = randevularState.randevular.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
+
+  const handleDelete = (id) => {
+    api
+      .delete(url.randevular + "/" + id)
+      .then((resRandevu) => {
+        dispatch({ type: actionTypes.DELETE_RANDEVU, payload: id });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   if (randevularState.success !== true || hastalarState.success !== true) {
     return <h1>Loading...</h1>;
@@ -94,7 +111,27 @@ const Home = () => {
                   <TableCell>{aradigimHasta?.name}</TableCell>
                   <TableCell>{aradigimHasta?.surname}</TableCell>
                   <TableCell>{aradigimHasta?.phone}</TableCell>
-                  <TableCell>butonlar gelecek</TableCell>
+                  <TableCell>
+                    <Stack spacing={2} direction="row">
+                      <Button variant="outlined" color="primary">
+                        Düzenle
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={() => handleDelete(randevu.id)}
+                      >
+                        Sil
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => navigate(`/randevu-detay/${randevu.id}`)}
+                      >
+                        Detaylar
+                      </Button>
+                    </Stack>
+                  </TableCell>
                 </TableRow>
               );
             })}

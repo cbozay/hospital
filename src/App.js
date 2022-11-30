@@ -9,6 +9,7 @@ import { api } from "./api/api";
 import { url } from "./api/url";
 import { useDispatch } from "react-redux";
 import actionTypes from "./redux/actions/actionTypes";
+import RandevuDetay from "./pages/RandevuDetay";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
         <Route path="/hasta-ekle" element={<HastaEkle />} />
         <Route path="/randevu-ekle" element={<RandevuEkle />} />
         <Route path="/detaylar/:hastaDetayId" element={<Detaylar />} />
+        <Route path="/randevu-detay/:randevuId" element={<RandevuDetay />} />
       </Routes>
     </BrowserRouter>
   );
