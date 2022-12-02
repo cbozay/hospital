@@ -6,6 +6,11 @@ import { url } from "../api/url";
 import AddTedaviModal from "../components/AddTedaviModal";
 import { useSelector } from "react-redux";
 
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+
 const Detaylar = () => {
   const { hastaDetayId } = useParams();
   const { islemlerState } = useSelector((state) => state);
@@ -82,53 +87,119 @@ const Detaylar = () => {
           </h3>
         </div>
       </div>
-      <hr />
 
-      {hastaIslemleri.map((hastaIslemi, index) => {
-        return (
-          <h4 key={index} className="d-flex justify-content-center">
-            <div className="d-flex border" style={{ width: "500px" }}>
-              <div style={{ fontWeight: "bold", color: "red" }}>
-                {index + 1 + "-"}
-              </div>
-
-              <div>
-                <div>
-                  <span style={{ fontWeight: "bold" }}>Hasta Şikayet: </span>
-                  <span>{hastaIslemi.sikayet}</span>
-                </div>
-                <div>
-                  <span style={{ fontWeight: "bold" }}>Uygulanan Tedavi: </span>
-                  {hastaIslemi.uygulananTedavi
-                    ? hastaIslemi.uygulananTedavi
-                    : "-"}
-                </div>
-                <div>
-                  <span style={{ fontWeight: "bold" }}>Yazılan İlaçlar: </span>
-                  {hastaIslemi.yazilanIlaclar.length
-                    ? hastaIslemi.yazilanIlaclar + ","
-                    : "-"}
-                </div>
-                {hastaIslemi.uygulananTedavi ||
-                hastaIslemi.yazilanIlaclar.length ? (
-                  ""
-                ) : (
-                  <button
-                    onClick={() => {
-                      setButtonHandler(true);
-                      setHastaIslem(hastaIslemi);
-                    }}
-                    style={{ fontSize: "15px" }}
-                    className="btn btn-sm btn-outline-primary"
-                  >
-                    Tedavi & İlaç Ekle
-                  </button>
-                )}
-              </div>
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {(popupState) => (
+          <React.Fragment>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button variant="outlined" {...bindTrigger(popupState)}>
+                Hasta İşlemlerİnİ Göster
+              </Button>
             </div>
-          </h4>
-        );
-      })}
+            <Menu
+              {...bindMenu(popupState)}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              {hastaIslemleri.map((hastaIslemi, index) => {
+                return (
+                  <h4 key={index} className="d-flex justify-content-center">
+                    <div className="d-flex " style={{ width: "500px" }}>
+                      <div
+                        style={{
+                          fontWeight: "bold",
+                          color: "red",
+                          marginLeft: "20px",
+                        }}
+                      >
+                        {index + 1 + "-"}
+                      </div>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+
+                          width: "100%",
+                        }}
+                      >
+                        <div>
+                          <div
+                            style={{
+                              fontWeight: "bold",
+                              borderBottom: "1px solid",
+                            }}
+                          >
+                            Hasta Şikayet:
+                          </div>
+                          <div
+                            style={{
+                              fontWeight: "bold",
+                              borderBottom: "1px solid",
+                            }}
+                          >
+                            Uygulanan Tedavi:
+                          </div>
+                          <div
+                            style={{
+                              fontWeight: "bold",
+                              borderBottom: "1px solid",
+                            }}
+                          >
+                            Yazılan İlaçlar:
+                          </div>
+                        </div>
+
+                        <div>
+                          <div style={{ fontWeight: "normal" }}>
+                            {" "}
+                            {hastaIslemi.sikayet}
+                          </div>
+
+                          <div style={{ fontWeight: "normal" }}>
+                            {" "}
+                            {hastaIslemi.uygulananTedavi
+                              ? hastaIslemi.uygulananTedavi
+                              : "-"}
+                          </div>
+
+                          <div style={{ fontWeight: "normal" }}>
+                            {" "}
+                            {hastaIslemi.yazilanIlaclar.length
+                              ? hastaIslemi.yazilanIlaclar
+                              : "-"}
+                          </div>
+                        </div>
+                        {hastaIslemi.uygulananTedavi ||
+                        hastaIslemi.yazilanIlaclar.length ? (
+                          ""
+                        ) : (
+                          <button
+                            onClick={() => {
+                              setButtonHandler(true);
+                              setHastaIslem(hastaIslemi);
+                            }}
+                            style={{ fontSize: "15px" }}
+                            className="btn btn-sm btn-outline-primary"
+                          >
+                            Tedavi & İlaç Ekle
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </h4>
+                );
+              })}
+            </Menu>
+          </React.Fragment>
+        )}
+      </PopupState>
 
       <AddTedaviModal
         open={buttonHandler}

@@ -7,10 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
+import { ButtonGroup } from "@mui/material";
 import { api } from "../api/api";
 import { url } from "../api/url";
 import actionTypes from "../redux/actions/actionTypes";
@@ -19,7 +19,6 @@ const Home = () => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
 
   //   WARNING:It has been made possible the automatic control mechanism
   // to realize refreshment of the page one time within 1 second.
@@ -60,84 +59,105 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <TableContainer style={{ marginTop: "50px" }} component={Paper}>
-        <div
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <TableContainer
+          style={{ marginTop: "50px", width: 1000 }}
+          component={Paper}
         >
-          <Button onClick={() => navigate("/randevu-ekle")} variant="contained">
-            Randevu Ekle
-          </Button>
-        </div>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead sx={{ backgroundColor: "#999" }}>
-            <TableRow>
-              <TableCell>Tarih</TableCell>
-              <TableCell>Adı</TableCell>
-              <TableCell>Soyadı</TableCell>
-              <TableCell>Telefon Numarası</TableCell>
-              <TableCell>İşlem</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedRandevular.map((randevu) => {
-              const aradigimHasta = hastalarState.hastalar.find(
-                (hasta) => hasta.id === randevu.hastaId
-              );
+          <div
+            style={{
+              marginBottom: "20px",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button
+              onClick={() => navigate("/randevu-ekle")}
+              variant="contained"
+            >
+              Randevu Ekle
+            </Button>
+          </div>
 
-              var appointmentDate = new Date(randevu.date);
-              if (checkDate.getTime() > appointmentDate.getTime()) {
-                return false;
-              }
+          <Table sx={{}} aria-label="simple table">
+            <TableHead
+              sx={{
+                backgroundColor: "#999",
+                "& th": {
+                  fontSize: "1.25rem",
+                  color: "#fff",
+                },
+              }}
+            >
+              <TableRow>
+                <TableCell>Tarih</TableCell>
+                <TableCell align="right">Adı</TableCell>
+                <TableCell align="right">Soyadı</TableCell>
+                <TableCell align="right">Telefon Numarası</TableCell>
+                <TableCell align="right">İşlem</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sortedRandevular.map((randevu) => {
+                const aradigimHasta = hastalarState.hastalar.find(
+                  (hasta) => hasta.id === randevu.hastaId
+                );
 
-              return (
-                <TableRow
-                  style={{
-                    backgroundColor:
-                      appointmentDate.getTime() - checkDate.getTime() <=
-                        300000 && "yellow",
-                  }}
-                  key={randevu.id}
-                  sx={{
-                    "&:last-child td, &:last-child th": { border: 0 },
-                  }}
-                >
-                  <TableCell component="th" scope="row">
-                    {new Date(randevu?.date).toLocaleString()}
-                  </TableCell>
-                  <TableCell>{aradigimHasta?.name}</TableCell>
-                  <TableCell>{aradigimHasta?.surname}</TableCell>
-                  <TableCell>{aradigimHasta?.phone}</TableCell>
-                  <TableCell>
-                    <Stack spacing={2} direction="row">
-                      <Button variant="outlined" color="primary">
-                        Düzenle
-                      </Button>
-                      <Button
+                var appointmentDate = new Date(randevu.date);
+                if (checkDate.getTime() > appointmentDate.getTime()) {
+                  return false;
+                }
+
+                return (
+                  <TableRow
+                    style={{
+                      backgroundColor:
+                        appointmentDate.getTime() - checkDate.getTime() <=
+                          300000 && "yellow",
+                    }}
+                    key={randevu.id}
+                  >
+                    <TableCell component="th" scope="row">
+                      {new Date(randevu?.date).toLocaleString()}
+                    </TableCell>
+                    <TableCell align="right">{aradigimHasta?.name}</TableCell>
+                    <TableCell align="right">
+                      {aradigimHasta?.surname}
+                    </TableCell>
+                    <TableCell align="right">{aradigimHasta?.phone}</TableCell>
+                    <TableCell align="right">
+                      <ButtonGroup
                         variant="outlined"
-                        color="error"
-                        onClick={() => handleDelete(randevu.id)}
+                        aria-label="outlined button group"
                       >
-                        Sil
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        onClick={() => navigate(`/randevu-detay/${randevu.id}`)}
-                      >
-                        Detaylar
-                      </Button>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                        <Button variant="outlined" color="primary">
+                          Düzenle
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="error"
+                          onClick={() => handleDelete(randevu.id)}
+                        >
+                          Sil
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          onClick={() =>
+                            navigate(`/randevu-detay/${randevu.id}`)
+                          }
+                        >
+                          Detaylar
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };
