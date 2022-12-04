@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import dayjs from "dayjs";
 
 import Header from "../components/Header";
 import { api } from "../api/api";
@@ -14,7 +18,13 @@ const RandevuEkle = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = React.useState(dayjs(new Date()));
+
+  // const handleChange = (newValue) => {
+  //   setDate(newValue);
+  // };
+
+  // const [date, setDate] = useState("");
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -158,20 +168,32 @@ const RandevuEkle = (props) => {
   return (
     <div>
       <Header />
-      <form onSubmit={handleSubmit}>
+      <form
+        style={{
+          marginTop: "75px",
+        }}
+        onSubmit={handleSubmit}
+      >
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "20px 0px",
           }}
         >
-          <input
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              label="Date&Time picker"
+              value={date}
+              onChange={(newValue) => setDate(newValue)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          {/* <input
             value={date}
             // defaultValue={new Date("dd/mm/yyyy hh:mm")}
             onChange={(event) => setDate(event.target.value)}
             type={"datetime-local"}
-          />
+          /> */}
         </div>
         <div
           style={{
@@ -182,7 +204,7 @@ const RandevuEkle = (props) => {
         >
           <TextField
             type={"number"}
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Telefon Numarası"
             variant="outlined"
@@ -200,7 +222,7 @@ const RandevuEkle = (props) => {
         >
           <TextField
             type={"text"}
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Hasta Adı"
             variant="outlined"
@@ -219,7 +241,7 @@ const RandevuEkle = (props) => {
         >
           <TextField
             type={"text"}
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Hasta Soyadı"
             variant="outlined"
@@ -238,7 +260,7 @@ const RandevuEkle = (props) => {
         >
           <TextField
             type={"text"}
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Şikayet"
             variant="outlined"

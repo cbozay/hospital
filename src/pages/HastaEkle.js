@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
+import AddIcon from "@mui/icons-material/Add";
+import Stack from "@mui/material/Stack";
 import Header from "../components/Header";
 
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,11 @@ const HastaEkle = (props) => {
   const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [sikayet, setSikayet] = useState("");
+  const [file, setFile] = useState("");
+
+  const handleFile = (event) => {
+    event.preventDefault();
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +40,7 @@ const HastaEkle = (props) => {
       (hasta) => hasta.phone === phone
     );
 
-    if (hasNumber !== undefined) {
+    if (hasNumber) {
       alert("Bu numarayla kayıtlı bir hasta zaten vardır!");
       return;
     }
@@ -82,8 +88,53 @@ const HastaEkle = (props) => {
             margin: "20px 0px",
           }}
         >
-          <TextField
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="raised-button-file"
+            multiple
+            type="file"
+            onChange={(event) => setFile(event.target.files[0])}
+          />
+          <label htmlFor="raised-button-file">
+            <Stack
+              direction="row"
+              spacing={2}
+              style={{
+                border: "1px solid",
+                width: "157px",
+                height: "200px",
+                borderRadius: "50%",
+              }}
+            >
+              <Button
+                style={{ borderRadius: "50%" }}
+                variant="raised"
+                startIcon={<AddIcon />}
+                component="span"
+                type="submit"
+              >
+                Resİm yükle
+              </Button>
+            </Stack>
+          </label>
+          {/* <TextField
             style={{ width: "50%" }}
+            id="outlined-basic"
+            label="Resim yükle"
+            variant="outlined"
+            type="file"
+          /> */}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "20px 0px",
+          }}
+        >
+          <TextField
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Hasta Adı"
             variant="outlined"
@@ -99,7 +150,7 @@ const HastaEkle = (props) => {
           }}
         >
           <TextField
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Hasta Soyadı"
             variant="outlined"
@@ -116,7 +167,7 @@ const HastaEkle = (props) => {
         >
           <TextField
             type={"number"}
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Telefon Numarası"
             variant="outlined"
@@ -132,7 +183,7 @@ const HastaEkle = (props) => {
           }}
         >
           <TextField
-            style={{ width: "50%" }}
+            style={{ width: "350px" }}
             id="outlined-basic"
             label="Hastanın Şikayeti"
             variant="outlined"

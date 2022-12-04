@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 const Detaylar = () => {
@@ -110,12 +109,21 @@ const Detaylar = () => {
               {hastaIslemleri.map((hastaIslemi, index) => {
                 return (
                   <h4 key={index} className="d-flex justify-content-center">
-                    <div className="d-flex " style={{ width: "500px" }}>
+                    <div
+                      className="d-flex align-items-center"
+                      style={{
+                        margin: "5px 20px 5px 20px",
+                        width: "100%",
+                        border: "1px solid",
+                        borderRadius: "5px",
+                        padding: "10px",
+                      }}
+                    >
                       <div
                         style={{
                           fontWeight: "bold",
                           color: "red",
-                          marginLeft: "20px",
+                          marginRight: "3px",
                         }}
                       >
                         {index + 1 + "-"}
@@ -124,9 +132,6 @@ const Detaylar = () => {
                       <div
                         style={{
                           display: "flex",
-                          justifyContent: "space-around",
-
-                          width: "100%",
                         }}
                       >
                         <div>
@@ -156,41 +161,44 @@ const Detaylar = () => {
                           </div>
                         </div>
 
-                        <div>
+                        <div
+                          style={{
+                            marginLeft: "20px",
+                          }}
+                        >
                           <div style={{ fontWeight: "normal" }}>
-                            {" "}
                             {hastaIslemi.sikayet}
                           </div>
 
-                          <div style={{ fontWeight: "normal" }}>
-                            {" "}
-                            {hastaIslemi.uygulananTedavi
-                              ? hastaIslemi.uygulananTedavi
-                              : "-"}
-                          </div>
-
-                          <div style={{ fontWeight: "normal" }}>
-                            {" "}
-                            {hastaIslemi.yazilanIlaclar.length
-                              ? hastaIslemi.yazilanIlaclar
-                              : "-"}
+                          <div
+                            style={{
+                              fontWeight: "normal",
+                            }}
+                          >
+                            {hastaIslemi.uygulananTedavi ||
+                            hastaIslemi.yazilanIlaclar.length ? (
+                              <>
+                                <div>{hastaIslemi.uygulananTedavi}</div>
+                                <div>{hastaIslemi.yazilanIlaclar}</div>
+                              </>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  setButtonHandler(true);
+                                  setHastaIslem(hastaIslemi);
+                                }}
+                                style={{
+                                  fontSize: "15px",
+                                  height: "50px",
+                                  marginTop: "5px",
+                                }}
+                                className="btn btn-sm btn-outline-primary"
+                              >
+                                Tedavi & İlaç Ekle
+                              </button>
+                            )}
                           </div>
                         </div>
-                        {hastaIslemi.uygulananTedavi ||
-                        hastaIslemi.yazilanIlaclar.length ? (
-                          ""
-                        ) : (
-                          <button
-                            onClick={() => {
-                              setButtonHandler(true);
-                              setHastaIslem(hastaIslemi);
-                            }}
-                            style={{ fontSize: "15px" }}
-                            className="btn btn-sm btn-outline-primary"
-                          >
-                            Tedavi & İlaç Ekle
-                          </button>
-                        )}
                       </div>
                     </div>
                   </h4>

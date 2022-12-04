@@ -75,7 +75,10 @@ const RandevuDetay = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(islemlerim);
+  if (hasta === null || randevu === null || islemlerim === null) {
+    <h1>Loading...</h1>;
+    return;
+  }
 
   return (
     <div>
@@ -123,9 +126,11 @@ const RandevuDetay = () => {
                   <div>
                     {["bottom"].map((anchor) => (
                       <React.Fragment key={anchor}>
-                        <Button onClick={toggleDrawer(anchor, true)}>
-                          göster
-                        </Button>
+                        {
+                          <Button onClick={toggleDrawer(anchor, true)}>
+                            göster
+                          </Button>
+                        }
                         <SwipeableDrawer
                           anchor={anchor}
                           open={state[anchor]}
@@ -174,7 +179,7 @@ const RandevuDetay = () => {
                                           : "Herhangi bir tedavi uygulanmamıştır"}
                                       </TableCell>
                                       <TableCell align="right">
-                                        {islem.yazilanIlaclar
+                                        {islem.yazilanIlaclar.length
                                           ? islem.yazilanIlaclar
                                           : "Herhangi bir ilaç yazılmamıştır"}
                                       </TableCell>

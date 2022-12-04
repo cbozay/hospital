@@ -22,7 +22,7 @@ const Header = (props) => {
             }}
           >
             <Link className="menuLink" to="/">
-              Anasayfa
+              Randevular
             </Link>
             <Link className="menuLink" to="/hastalar">
               Hastalar
