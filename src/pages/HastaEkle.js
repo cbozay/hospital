@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import Stack from "@mui/material/Stack";
-import Header from "../components/Header";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import HideImageOutlinedIcon from "@mui/icons-material/HideImageOutlined";
 
+import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import { url } from "../api/url";
 import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "../redux/actions/actionTypes";
+import { TextField } from "@mui/material";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -20,14 +20,32 @@ const HastaEkle = (props) => {
   const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [sikayet, setSikayet] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
+  const [img, setImg] = useState("");
+  console.log(img);
 
-  const handleFile = (event) => {
+  const handleChange = (event) => {
     event.preventDefault();
+
+    let base64 = "";
+    let reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    reader.onload = () => {
+      base64 = reader.result;
+      console.log(reader.result);
+      setImg(reader.result);
+    };
+
+    reader.onerror = function (error) {
+      console.log("Error:  ", error);
+    };
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (name === "" || surname === "" || phone === "" || sikayet === "") {
       alert("Bütün alanları doldurmak zorunludur!");
       return;
@@ -57,6 +75,7 @@ const HastaEkle = (props) => {
         dispatch({ type: actionTypes.ADD_ISLEM, payload: newIslem });
         const newHasta = {
           id: String(new Date().getTime()),
+
           name: name,
           surname: surname,
           phone: phone,
@@ -80,52 +99,81 @@ const HastaEkle = (props) => {
   return (
     <div>
       <Header />
-      <form style={{ margin: "50px" }} onSubmit={handleSubmit}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "20px 0px",
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
+            height: "250px",
+            width: "175px",
+            border: "1px solid",
+            borderRadius: "50%",
           }}
+        >
+          {img ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                style={{
+                  height: "250px",
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 40px",
+                  borderRadius: "50%",
+                }}
+                src={img}
+                alt="aa"
+              />
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "250px",
+              }}
+            >
+              <HideImageOutlinedIcon
+                style={{
+                  height: "100px",
+                  width: "100%",
+                }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+      <form
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "20px 0px",
+        }}
+        onSubmit={handleChange}
+      >
+        <Button
+          style={{ width: "350px", border: "1px solid #bbb" }}
+          variant="raised"
+          type="submit"
         >
           <input
             accept="image/*"
-            style={{ display: "none" }}
-            id="raised-button-file"
-            multiple
-            type="file"
+            type={"file"}
             onChange={(event) => setFile(event.target.files[0])}
           />
-          <label htmlFor="raised-button-file">
-            <Stack
-              direction="row"
-              spacing={2}
-              style={{
-                border: "1px solid",
-                width: "157px",
-                height: "200px",
-                borderRadius: "50%",
-              }}
-            >
-              <Button
-                style={{ borderRadius: "50%" }}
-                variant="raised"
-                startIcon={<AddIcon />}
-                component="span"
-                type="submit"
-              >
-                Resİm yükle
-              </Button>
-            </Stack>
-          </label>
-          {/* <TextField
-            style={{ width: "50%" }}
-            id="outlined-basic"
-            label="Resim yükle"
-            variant="outlined"
-            type="file"
-          /> */}
-        </div>
+          <FileUploadIcon style={{ fontSize: "40px" }} />
+        </Button>
+      </form>
+
+      <form style={{}} onSubmit={handleSubmit}>
         <div
           style={{
             display: "flex",
