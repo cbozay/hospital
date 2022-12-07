@@ -75,11 +75,11 @@ const HastaEkle = (props) => {
         dispatch({ type: actionTypes.ADD_ISLEM, payload: newIslem });
         const newHasta = {
           id: String(new Date().getTime()),
-
           name: name,
           surname: surname,
           phone: phone,
           islemIds: [newIslem.id],
+          img: img,
         };
         api
           .post(url.hastalar, newHasta)
@@ -173,7 +173,7 @@ const HastaEkle = (props) => {
         </Button>
       </form>
 
-      <form style={{}} onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div
           style={{
             display: "flex",

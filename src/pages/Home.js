@@ -61,7 +61,7 @@ const Home = () => {
       <Header />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <TableContainer
-          style={{ marginTop: "50px", width: 1000 }}
+          style={{ marginTop: "50px", width: 900 }}
           component={Paper}
         >
           <div
@@ -91,9 +91,9 @@ const Home = () => {
             >
               <TableRow>
                 <TableCell>Tarih</TableCell>
-                <TableCell align="right">Adı</TableCell>
-                <TableCell align="right">Soyadı</TableCell>
-                <TableCell align="right">Telefon Numarası</TableCell>
+                <TableCell>Adı</TableCell>
+                <TableCell>Soyadı</TableCell>
+                <TableCell>Telefon Numarası</TableCell>
                 <TableCell align="right">İşlem</TableCell>
               </TableRow>
             </TableHead>
@@ -120,11 +120,9 @@ const Home = () => {
                     <TableCell component="th" scope="row">
                       {new Date(randevu?.date).toLocaleString()}
                     </TableCell>
-                    <TableCell align="right">{aradigimHasta?.name}</TableCell>
-                    <TableCell align="right">
-                      {aradigimHasta?.surname}
-                    </TableCell>
-                    <TableCell align="right">{aradigimHasta?.phone}</TableCell>
+                    <TableCell>{aradigimHasta?.name}</TableCell>
+                    <TableCell>{aradigimHasta?.surname}</TableCell>
+                    <TableCell>{aradigimHasta?.phone}</TableCell>
                     <TableCell align="right">
                       <ButtonGroup
                         variant="outlined"
@@ -138,7 +136,7 @@ const Home = () => {
                           color="error"
                           onClick={() => handleDelete(randevu.id)}
                         >
-                          Sil
+                          Sİl
                         </Button>
                         <Button
                           variant="outlined"

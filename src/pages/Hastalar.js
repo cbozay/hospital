@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import Button from "@mui/material/Button";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 import actionTypes from "../redux/actions/actionTypes";
 import { useNavigate } from "react-router-dom";
@@ -79,7 +81,7 @@ const Hastalar = (props) => {
       <Header />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <TableContainer
-          style={{ marginTop: "50px", width: 1000 }}
+          style={{ marginTop: "50px", width: 900 }}
           component={Paper}
         >
           <div
@@ -104,9 +106,10 @@ const Hastalar = (props) => {
                   },
                 }}
               >
+                <TableCell></TableCell>
                 <TableCell>Adı</TableCell>
                 <TableCell>Soyadı</TableCell>
-                <TableCell align="right">Telefon Numarası</TableCell>
+                <TableCell>Telefon Numarası</TableCell>
                 <TableCell align="right">İşlem</TableCell>
               </TableRow>
             </TableHead>
@@ -127,9 +130,65 @@ const Hastalar = (props) => {
                     },
                   }}
                 >
+                  <TableCell
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+
+                      // border: "none",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    {hasta.img ? (
+                      <div
+                        style={{
+                          width: "35px",
+                          height: "40px",
+                          border: "1px solid",
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          style={{
+                            width: "34px",
+                            borderRadius: "50%",
+                            height: "49px",
+                          }}
+                          src={hasta.img}
+                          alt="resim"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          width: "35px",
+                          height: "40px",
+                          border: "1px solid",
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <PermIdentityIcon
+                          style={{
+                            fontSize: "40px",
+                            // border: "1px solid",
+                            width: "35px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </div>
+                    )}
+                  </TableCell>
                   <TableCell>{hasta.name}</TableCell>
                   <TableCell>{hasta.surname}</TableCell>
-                  <TableCell align="right">{hasta.phone}</TableCell>
+                  <TableCell>{hasta.phone}</TableCell>
                   <TableCell align="right">
                     <ButtonGroup
                       variant="outlined"
@@ -150,7 +209,7 @@ const Hastalar = (props) => {
                         variant="outlined"
                         color="error"
                       >
-                        Sil
+                        Sİl
                       </Button>
                       <Button
                         onClick={() => navigate(`/detaylar/${hasta.id}`)}
