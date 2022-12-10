@@ -127,7 +127,11 @@ const RandevuDetay = () => {
                     {["bottom"].map((anchor) => (
                       <React.Fragment key={anchor}>
                         {
-                          <Button onClick={toggleDrawer(anchor, true)}>
+                          <Button
+                            style={{ border: "1px solid #bbb" }}
+                            variant="raised"
+                            onClick={toggleDrawer(anchor, true)}
+                          >
                             göster
                           </Button>
                         }
@@ -150,11 +154,11 @@ const RandevuDetay = () => {
                                     },
                                   }}
                                 >
-                                  <TableCell>Şikayet</TableCell>
-                                  <TableCell align="right">
+                                  <TableCell align="center">Şikayet</TableCell>
+                                  <TableCell align="center">
                                     Uygulanan Tedavi
                                   </TableCell>
-                                  <TableCell align="right">
+                                  <TableCell align="center">
                                     Yazılan İlaçlar
                                   </TableCell>
                                 </TableRow>
@@ -170,18 +174,31 @@ const RandevuDetay = () => {
                                         },
                                       }}
                                     >
-                                      <TableCell component="th" scope="row">
+                                      <TableCell
+                                        align="center"
+                                        component="th"
+                                        scope="row"
+                                      >
                                         {islem.sikayet}
                                       </TableCell>
-                                      <TableCell align="right">
-                                        {islem.uygulananTedavi
-                                          ? islem.uygulananTedavi
-                                          : "Herhangi bir tedavi uygulanmamıştır"}
+                                      <TableCell align="center">
+                                        {islem.uygulananTedavi ? (
+                                          islem.uygulananTedavi
+                                        ) : (
+                                          <span style={{ color: "orange" }}>
+                                            "Herhangi bir tedavi
+                                            uygulanmamıştır"
+                                          </span>
+                                        )}
                                       </TableCell>
-                                      <TableCell align="right">
-                                        {islem.yazilanIlaclar.length
-                                          ? islem.yazilanIlaclar
-                                          : "Herhangi bir ilaç yazılmamıştır"}
+                                      <TableCell align="center">
+                                        {islem.yazilanIlaclar.length ? (
+                                          islem.yazilanIlaclar
+                                        ) : (
+                                          <span style={{ color: "orange" }}>
+                                            "Herhangi bir ilaç yazılmamıştır"
+                                          </span>
+                                        )}
                                       </TableCell>
                                     </TableRow>
                                   );

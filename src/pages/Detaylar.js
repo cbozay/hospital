@@ -69,20 +69,44 @@ const Detaylar = () => {
     <div>
       <Header />
       <div className="d-flex justify-content-center my-4">
-        <div className="border border-warning rounded p-4">
-          <h3>
-            <span style={{ fontWeight: "bold" }}>Hasta Kayıt No: </span>
-            {hasta.id}
-          </h3>
-          <h3>
-            <span style={{ fontWeight: "bold" }}>Hasta Adı Soyadı: </span>
-            {hasta.name} {hasta.surname}
-          </h3>
+        <div
+          className="border rounded p-4"
+          style={{
+            minWidth: "450px",
+            boxShadow:
+              " rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+          }}
+        >
+          <h3
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <div style={{ borderBottom: "1px solid" }}>Hasta Kayıt No: </div>
+              <div style={{ borderBottom: "1px solid" }}>
+                Hasta Adı Soyadı:{" "}
+              </div>
+              <div style={{ borderBottom: "1px solid" }}>
+                Hasta Telefon No:{" "}
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "column",
 
-          <h3>
-            {" "}
-            <span style={{ fontWeight: "bold" }}>Hasta Telefon No: </span>
-            {hasta.phone}
+                textAlign: "end",
+              }}
+            >
+              <div>{hasta.id}</div>
+              <div>
+                {hasta.name} {hasta.surname}
+              </div>
+              <div>{hasta.phone}</div>
+            </div>
           </h3>
         </div>
       </div>
@@ -91,7 +115,11 @@ const Detaylar = () => {
         {(popupState) => (
           <React.Fragment>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="outlined" {...bindTrigger(popupState)}>
+              <Button
+                style={{ border: "1px solid", margin: "20px" }}
+                variant="raised"
+                {...bindTrigger(popupState)}
+              >
                 Hasta İşlemlerİnİ Göster
               </Button>
             </div>
@@ -137,7 +165,6 @@ const Detaylar = () => {
                         <div>
                           <div
                             style={{
-                              fontWeight: "bold",
                               borderBottom: "1px solid",
                             }}
                           >
@@ -145,7 +172,6 @@ const Detaylar = () => {
                           </div>
                           <div
                             style={{
-                              fontWeight: "bold",
                               borderBottom: "1px solid",
                             }}
                           >
@@ -153,7 +179,6 @@ const Detaylar = () => {
                           </div>
                           <div
                             style={{
-                              fontWeight: "bold",
                               borderBottom: "1px solid",
                             }}
                           >
@@ -166,13 +191,13 @@ const Detaylar = () => {
                             marginLeft: "20px",
                           }}
                         >
-                          <div style={{ fontWeight: "normal" }}>
+                          <div style={{ fontWeight: "bold" }}>
                             {hastaIslemi.sikayet}
                           </div>
 
                           <div
                             style={{
-                              fontWeight: "normal",
+                              fontWeight: "bold",
                             }}
                           >
                             {hastaIslemi.uygulananTedavi ||
@@ -182,20 +207,28 @@ const Detaylar = () => {
                                 <div>{hastaIslemi.yazilanIlaclar}</div>
                               </>
                             ) : (
-                              <button
-                                onClick={() => {
-                                  setButtonHandler(true);
-                                  setHastaIslem(hastaIslemi);
-                                }}
+                              <div
                                 style={{
-                                  fontSize: "15px",
-                                  height: "50px",
-                                  marginTop: "5px",
+                                  display: "flex",
+                                  flexDirection: "column",
                                 }}
-                                className="btn btn-sm btn-outline-primary"
                               >
-                                Tedavi & İlaç Ekle
-                              </button>
+                                <button
+                                  onClick={() => {
+                                    setButtonHandler(true);
+                                    setHastaIslem(hastaIslemi);
+                                  }}
+                                  style={{
+                                    fontSize: "15px",
+                                    height: "52px",
+                                    marginTop: "5px",
+                                    width: "100%",
+                                  }}
+                                  className="btn btn-sm btn-outline-primary"
+                                >
+                                  Tedavi & İlaç Ekle
+                                </button>
+                              </div>
                             )}
                           </div>
                         </div>

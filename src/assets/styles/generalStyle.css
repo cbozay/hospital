@@ -4,6 +4,24 @@
   font-family: sans-serif;
   transition: all 0.2s linear;
 }
+
+.menuLink.active {
+  border-bottom: 1px solid #fff;
+}
 .menuLink:hover {
   color: #fff;
+}
+
+.menuLink::after {
+  content: "";
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  display: block;
+  margin: auto;
+  transition: 0.5s;
+}
+
+.menuLink:hover::after {
+  width: 100%;
 }

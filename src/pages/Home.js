@@ -10,15 +10,40 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { ButtonGroup } from "@mui/material";
 import { api } from "../api/api";
 import { url } from "../api/url";
 import actionTypes from "../redux/actions/actionTypes";
+import RandevuTableBody from "../components/RandevuTableBody";
+import Switch from "@mui/material/Switch";
+import Zoom from "@mui/material/Zoom";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Box from "@mui/material/Box";
+import * as React from "react";
+import Popover from "@mui/material/Popover";
+import { Typography } from "@mui/material";
 
 const Home = () => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   //   WARNING:It has been made possible the automatic control mechanism
   // to realize refreshment of the page one time within 1 second.
@@ -59,9 +84,17 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <TableContainer
-          style={{ marginTop: "50px", width: 900 }}
+          style={{
+            marginTop: "50px",
+            width: 900,
+          }}
           component={Paper}
         >
           <div
@@ -79,7 +112,7 @@ const Home = () => {
             </Button>
           </div>
 
-          <Table sx={{}} aria-label="simple table">
+          <Table aria-label="simple table">
             <TableHead
               sx={{
                 backgroundColor: "#999",
@@ -109,51 +142,115 @@ const Home = () => {
                 }
 
                 return (
-                  <TableRow
-                    style={{
-                      backgroundColor:
-                        appointmentDate.getTime() - checkDate.getTime() <=
-                          300000 && "yellow",
-                    }}
+                  <RandevuTableBody
                     key={randevu.id}
-                  >
-                    <TableCell component="th" scope="row">
-                      {new Date(randevu?.date).toLocaleString()}
-                    </TableCell>
-                    <TableCell>{aradigimHasta?.name}</TableCell>
-                    <TableCell>{aradigimHasta?.surname}</TableCell>
-                    <TableCell>{aradigimHasta?.phone}</TableCell>
-                    <TableCell align="right">
-                      <ButtonGroup
-                        variant="outlined"
-                        aria-label="outlined button group"
-                      >
-                        <Button variant="outlined" color="primary">
-                          Düzenle
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          color="error"
-                          onClick={() => handleDelete(randevu.id)}
-                        >
-                          Sİl
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          color="secondary"
-                          onClick={() =>
-                            navigate(`/randevu-detay/${randevu.id}`)
-                          }
-                        >
-                          Detaylar
-                        </Button>
-                      </ButtonGroup>
-                    </TableCell>
-                  </TableRow>
+                    appointmentDate={appointmentDate}
+                    randevu={randevu}
+                    checkDate={checkDate}
+                    aradigimHasta={aradigimHasta}
+                    handleDelete={handleDelete}
+                  />
                 );
               })}
             </TableBody>
           </Table>
+        </TableContainer>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <TableContainer
+          component={Paper}
+          style={{
+            width: 900,
+          }}
+        >
+          <Box>
+            <FormControlLabel
+              style={{ marginLeft: "0px" }}
+              control={<Switch checked={checked} onChange={handleChange} />}
+              aria-owns={open ? "mouse-over-popover" : undefined}
+              aria-haspopup="true"
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
+
+              // label="Show"
+            />
+            <Popover
+              id="mouse-over-popover"
+              sx={{
+                pointerEvents: "none",
+                marginLeft: "33px",
+              }}
+              open={open}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                // vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              onClose={handlePopoverClose}
+              disableRestoreFocus
+            >
+              <Typography sx={{ padding: "6px" }}>Geçmiş Randevular</Typography>
+            </Popover>
+            <Box sx={{ display: "flex" }}>
+              <Zoom in={checked}>
+                <Table aria-label="simple table">
+                  <TableHead
+                    sx={{
+                      backgroundColor: "#999",
+                      "& th": {
+                        fontSize: "1.25rem",
+                        color: "#fff",
+                      },
+                    }}
+                  >
+                    <TableRow>
+                      <TableCell>Tarih</TableCell>
+                      <TableCell>Adı</TableCell>
+                      <TableCell>Soyadı</TableCell>
+                      <TableCell>Telefon Numarası</TableCell>
+                      <TableCell align="right">İşlem</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {sortedRandevular.map((randevu) => {
+                      const aradigimHasta = hastalarState.hastalar.find(
+                        (hasta) => hasta.id === randevu.hastaId
+                      );
+
+                      var appointmentDate = new Date(randevu.date);
+                      if (checkDate.getTime() < appointmentDate.getTime()) {
+                        return false;
+                      }
+
+                      return (
+                        <RandevuTableBody
+                          key={randevu.id}
+                          appointmentDate={appointmentDate}
+                          randevu={randevu}
+                          checkDate={checkDate}
+                          aradigimHasta={aradigimHasta}
+                          handleDelete={handleDelete}
+                        />
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </Zoom>
+              {/* <Zoom in={checked} style={{ transitionDelay: checked ? '500ms' : '0ms' }}>
+          {icon}
+        </Zoom> */}
+            </Box>
+          </Box>
         </TableContainer>
       </div>
     </div>

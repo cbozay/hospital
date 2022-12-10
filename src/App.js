@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Hastalar from "./pages/Hastalar";
 import HastaEkle from "./pages/HastaEkle";
