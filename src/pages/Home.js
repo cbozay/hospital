@@ -164,7 +164,7 @@ const Home = () => {
         }}
       >
         <TableContainer
-          component={Paper}
+          component={checked && Paper}
           style={{
             width: 900,
           }}
@@ -184,7 +184,7 @@ const Home = () => {
               id="mouse-over-popover"
               sx={{
                 pointerEvents: "none",
-                marginLeft: "33px",
+                marginLeft: "50px",
               }}
               open={open}
               anchorEl={anchorEl}

@@ -9,6 +9,14 @@ import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import Collapse from "@mui/material/Collapse";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const Detaylar = () => {
   const { hastaDetayId } = useParams();
@@ -17,6 +25,12 @@ const Detaylar = () => {
   const [hastaIslemleri, setHastaIslemleri] = useState([]);
   const [buttonHandler, setButtonHandler] = useState(false);
   const [hastaIslem, setHastaIslem] = useState("");
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     api
@@ -111,136 +125,147 @@ const Detaylar = () => {
         </div>
       </div>
 
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {(popupState) => (
-          <React.Fragment>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                style={{ border: "1px solid", margin: "20px" }}
-                variant="raised"
-                {...bindTrigger(popupState)}
-              >
-                Hasta İşlemlerİnİ Göster
-              </Button>
-            </div>
-            <Menu
-              {...bindMenu(popupState)}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-            >
-              {hastaIslemleri.map((hastaIslemi, index) => {
-                return (
-                  <h4 key={index} className="d-flex justify-content-center">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <ListItemButton
+          style={{
+            width: "300px",
+            border: "1px solid",
+            borderRadius: "5px",
+          }}
+          onClick={handleClick}
+        >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Hasta İşlemlerİ" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {hastaIslemleri.map((hastaIslemi, index) => {
+              return (
+                <h4 key={index} className="d-flex justify-content-center">
+                  <div
+                    className="d-flex align-items-center"
+                    style={{
+                      margin: "5px 20px 5px 20px",
+                      width: "100%",
+                      border: "1px solid",
+                      borderRadius: "5px",
+                      padding: "10px",
+                    }}
+                  >
                     <div
-                      className="d-flex align-items-center"
                       style={{
-                        margin: "5px 20px 5px 20px",
-                        width: "100%",
-                        border: "1px solid",
-                        borderRadius: "5px",
-                        padding: "10px",
+                        fontWeight: "bold",
+                        color: "red",
+                        marginRight: "3px",
                       }}
                     >
-                      <div
-                        style={{
-                          fontWeight: "bold",
-                          color: "red",
-                          marginRight: "3px",
-                        }}
-                      >
-                        {index + 1 + "-"}
+                      {index + 1 + "-"}
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                      }}
+                    >
+                      <div>
+                        <div
+                          style={{
+                            borderBottom: "1px solid",
+                          }}
+                        >
+                          Hasta Şikayet:
+                        </div>
+                        <div
+                          style={{
+                            borderBottom: "1px solid",
+                          }}
+                        >
+                          Uygulanan Tedavi:
+                        </div>
+                        <div
+                          style={{
+                            borderBottom: "1px solid",
+                          }}
+                        >
+                          Yazılan İlaçlar:
+                        </div>
                       </div>
 
                       <div
                         style={{
-                          display: "flex",
+                          marginLeft: "20px",
                         }}
                       >
-                        <div>
-                          <div
-                            style={{
-                              borderBottom: "1px solid",
-                            }}
-                          >
-                            Hasta Şikayet:
-                          </div>
-                          <div
-                            style={{
-                              borderBottom: "1px solid",
-                            }}
-                          >
-                            Uygulanan Tedavi:
-                          </div>
-                          <div
-                            style={{
-                              borderBottom: "1px solid",
-                            }}
-                          >
-                            Yazılan İlaçlar:
-                          </div>
+                        <div style={{ fontWeight: "bold" }}>
+                          {hastaIslemi.sikayet}
                         </div>
 
                         <div
                           style={{
-                            marginLeft: "20px",
+                            fontWeight: "bold",
                           }}
                         >
-                          <div style={{ fontWeight: "bold" }}>
-                            {hastaIslemi.sikayet}
-                          </div>
-
-                          <div
-                            style={{
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {hastaIslemi.uygulananTedavi ||
-                            hastaIslemi.yazilanIlaclar.length ? (
-                              <>
-                                <div>{hastaIslemi.uygulananTedavi}</div>
-                                <div>{hastaIslemi.yazilanIlaclar}</div>
-                              </>
-                            ) : (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
+                          {hastaIslemi.uygulananTedavi ||
+                          hastaIslemi.yazilanIlaclar.length ? (
+                            <>
+                              <div>{hastaIslemi.uygulananTedavi}</div>
+                              <div>{hastaIslemi.yazilanIlaclar}</div>
+                            </>
+                          ) : (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <button
+                                onClick={() => {
+                                  setButtonHandler(true);
+                                  setHastaIslem(hastaIslemi);
                                 }}
+                                style={{
+                                  fontSize: "15px",
+                                  height: "52px",
+                                  marginTop: "5px",
+                                  width: "100%",
+                                }}
+                                className="btn btn-sm btn-outline-primary"
                               >
-                                <button
-                                  onClick={() => {
-                                    setButtonHandler(true);
-                                    setHastaIslem(hastaIslemi);
-                                  }}
-                                  style={{
-                                    fontSize: "15px",
-                                    height: "52px",
-                                    marginTop: "5px",
-                                    width: "100%",
-                                  }}
-                                  className="btn btn-sm btn-outline-primary"
-                                >
-                                  Tedavi & İlaç Ekle
-                                </button>
-                              </div>
-                            )}
-                          </div>
+                                Tedavi & İlaç Ekle
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
-                  </h4>
-                );
-              })}
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
+                  </div>
+                </h4>
+              );
+            })}
+          </List>
+        </Collapse>
+      </div>
+
+      {/* <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                style={{ border: "1px solid", margin: "20px" }}
+                variant="raised"
+                
+              >
+                Hasta İşlemlerİnİ Göster
+              </Button>
+            </div> */}
 
       <AddTedaviModal
         open={buttonHandler}
