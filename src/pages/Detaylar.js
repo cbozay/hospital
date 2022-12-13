@@ -6,9 +6,6 @@ import { url } from "../api/url";
 import AddTedaviModal from "../components/AddTedaviModal";
 import { useSelector } from "react-redux";
 
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Collapse from "@mui/material/Collapse";
 import List from "@mui/material/List";
