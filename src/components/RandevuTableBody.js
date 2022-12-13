@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const RandevuTableBody = (props) => {
   const navigate = useNavigate();
-
+  if (!props.aradigimHasta?.name) {
+    return false;
+  }
   return (
     <TableRow
       style={{
@@ -28,7 +30,7 @@ const RandevuTableBody = (props) => {
       <TableCell align="right">
         <ButtonGroup variant="outlined" aria-label="outlined button group">
           {props.checkDate.getTime() < props.appointmentDate.getTime() && (
-            <Button variant="outlined" color="primary">
+            <Button variant="outlined" color="secondary">
               Düzenle
             </Button>
           )}
@@ -41,11 +43,7 @@ const RandevuTableBody = (props) => {
           </Button>
           <Button
             variant="outlined"
-            color={
-              props.appointmentDate.getTime() - props.checkDate.getTime() < 0
-                ? "primary"
-                : "secondary"
-            }
+            color="primary"
             onClick={() => navigate(`/randevu-detay/${props.randevu.id}`)}
           >
             Detaylar

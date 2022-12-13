@@ -132,9 +132,19 @@ const Home = () => {
             </TableHead>
             <TableBody>
               {sortedRandevular.map((randevu) => {
-                const aradigimHasta = hastalarState.hastalar.find(
-                  (hasta) => hasta.id === randevu.hastaId
-                );
+                const aradigimHasta = hastalarState.hastalar
+                  .filter((hasta) => {
+                    if (hastalarState.search === "") {
+                      return hasta;
+                    } else if (
+                      hasta.name
+                        .toLowerCase()
+                        .includes(hastalarState.search.toLowerCase())
+                    ) {
+                      return hasta;
+                    }
+                  })
+                  .find((hasta) => hasta.id === randevu.hastaId);
 
                 var appointmentDate = new Date(randevu.date);
                 if (checkDate.getTime() > appointmentDate.getTime()) {
@@ -221,11 +231,22 @@ const Home = () => {
                       <TableCell align="right">İşlem</TableCell>
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {sortedRandevular.map((randevu) => {
-                      const aradigimHasta = hastalarState.hastalar.find(
-                        (hasta) => hasta.id === randevu.hastaId
-                      );
+                      const aradigimHasta = hastalarState.hastalar
+                        .filter((hasta) => {
+                          if (hastalarState.search === "") {
+                            return hasta;
+                          } else if (
+                            hasta.name
+                              .toLowerCase()
+                              .includes(hastalarState.search.toLowerCase())
+                          ) {
+                            return hasta;
+                          }
+                        })
+                        .find((hasta) => hasta.id === randevu.hastaId);
 
                       var appointmentDate = new Date(randevu.date);
                       if (checkDate.getTime() < appointmentDate.getTime()) {

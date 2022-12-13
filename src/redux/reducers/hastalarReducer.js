@@ -6,6 +6,7 @@ const initialState = {
   hastalar: [],
   fail: false,
   errorMessage: "",
+  search: "",
 };
 
 const hastalarReducer = (state = initialState, action) => {
@@ -51,6 +52,15 @@ const hastalarReducer = (state = initialState, action) => {
       return {
         ...state,
         hastalar: [action.payload, ...filteredEditedHastalar],
+      };
+    case actionTypes.SEARCH_HASTALAR:
+      // const filteredSearchedName = state.hastalar.filter((hasta) =>
+      //   hasta.name.toLowerCase().includes(action.payload)
+      // );
+      return {
+        ...state,
+        // hastalar: filteredSearchedName,
+        search: action.payload,
       };
 
     default:

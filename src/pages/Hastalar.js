@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import Button from "@mui/material/Button";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 import actionTypes from "../redux/actions/actionTypes";
@@ -27,6 +26,14 @@ const Hastalar = (props) => {
   const [updateComponent, setUpdateComponent] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
+  // console.log(hastalarState.search);
+
+  // useEffect(() => {
+  //   const filteredHastalarName = hastalarState.hastalar.filter((hasta) =>
+  //     hasta.name.toLowerCase().includes(hastalarState.search)
+  //   );
+  //   setFilteredSearchedName(filteredHastalarName);
+  // }, [hastalarState.search]);
 
   const handleClose = () => {
     setOpenEditModal(false);
@@ -121,107 +128,119 @@ const Hastalar = (props) => {
                   </TableCell>
                 </TableRow>
               )}
-              {hastalarState.hastalar.map((hasta) => (
-                <TableRow
-                  key={hasta.id}
-                  sx={{
-                    "& th": {
-                      fontSize: "1.25rem",
-                    },
-                  }}
-                >
-                  <TableCell
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                      // border: "none",
-                      borderRadius: "50%",
+              {hastalarState.hastalar
+                .filter((hasta) => {
+                  if (hastalarState.search === "") {
+                    return hasta;
+                  } else if (
+                    hasta.name
+                      .toLowerCase()
+                      .includes(hastalarState.search.toLowerCase())
+                  ) {
+                    return hasta;
+                  }
+                })
+                .map((hasta) => (
+                  <TableRow
+                    key={hasta.id}
+                    sx={{
+                      "& th": {
+                        fontSize: "1.25rem",
+                      },
                     }}
                   >
-                    {hasta.img ? (
-                      <div
-                        style={{
-                          width: "35px",
-                          height: "40px",
-                          border: "1px solid",
-                          borderRadius: "50%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <img
-                          style={{
-                            width: "34px",
-                            borderRadius: "50%",
-                            height: "49px",
-                          }}
-                          src={hasta.img}
-                          alt="resim"
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          width: "35px",
-                          height: "40px",
-                          border: "1px solid",
-                          borderRadius: "50%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <PermIdentityIcon
-                          style={{
-                            fontSize: "40px",
-                            // border: "1px solid",
-                            width: "35px",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      </div>
-                    )}
-                  </TableCell>
-                  <TableCell>{hasta.name}</TableCell>
-                  <TableCell>{hasta.surname}</TableCell>
-                  <TableCell>{hasta.phone}</TableCell>
-                  <TableCell align="right">
-                    <ButtonGroup
-                      variant="outlined"
-                      aria-label="outlined button group"
+                    <TableCell
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                        // border: "none",
+                        borderRadius: "50%",
+                      }}
                     >
-                      <Button
-                        onClick={() => {
-                          setOpenEditModal(true);
-                          setSelectedHasta(hasta);
-                        }}
+                      {hasta.img ? (
+                        <div
+                          style={{
+                            width: "35px",
+                            height: "40px",
+                            border: "1px solid",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <img
+                            style={{
+                              width: "34px",
+                              borderRadius: "50%",
+                              height: "49px",
+                            }}
+                            src={hasta.img}
+                            alt="resim"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            width: "35px",
+                            height: "40px",
+                            border: "1px solid",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <PermIdentityIcon
+                            style={{
+                              fontSize: "40px",
+                              // border: "1px solid",
+                              width: "35px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </TableCell>
+                    <TableCell>{hasta.name}</TableCell>
+                    <TableCell>{hasta.surname}</TableCell>
+                    <TableCell>{hasta.phone}</TableCell>
+                    <TableCell align="right">
+                      <ButtonGroup
                         variant="outlined"
-                        color="primary"
+                        aria-label="outlined button group"
                       >
-                        Düzenle
-                      </Button>
-                      <Button
-                        onClick={() => handleDeleteHasta(hasta)}
-                        variant="outlined"
-                        color="error"
-                      >
-                        Sİl
-                      </Button>
-                      <Button
-                        onClick={() => navigate(`/detaylar/${hasta.id}`)}
-                        variant="outlined"
-                        color="secondary"
-                      >
-                        Detaylar
-                      </Button>
-                    </ButtonGroup>
-                  </TableCell>
-                </TableRow>
-              ))}
+                        <Button
+                          onClick={() => {
+                            setOpenEditModal(true);
+                            setSelectedHasta(hasta);
+                          }}
+                          variant="outlined"
+                          color="secondary"
+                        >
+                          Düzenle
+                        </Button>
+                        <Button
+                          onClick={() => handleDeleteHasta(hasta)}
+                          variant="outlined"
+                          color="error"
+                        >
+                          Sİl
+                        </Button>
+                        <Button
+                          onClick={() => navigate(`/detaylar/${hasta.id}`)}
+                          variant="outlined"
+                          color="primary"
+                        >
+                          Detaylar
+                        </Button>
+                      </ButtonGroup>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
