@@ -23,7 +23,9 @@ import Popover from "@mui/material/Popover";
 import { Typography } from "@mui/material";
 
 const Home = () => {
-  const { hastalarState, randevularState } = useSelector((state) => state);
+  const { hastalarState, randevularState, islemlerState } = useSelector(
+    (state) => state
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -126,7 +128,9 @@ const Home = () => {
                 <TableCell>Tarih</TableCell>
                 <TableCell>Adı</TableCell>
                 <TableCell>Soyadı</TableCell>
-                <TableCell>Telefon Numarası</TableCell>
+                <TableCell>Telefon</TableCell>
+                <TableCell>Şikayet</TableCell>
+
                 <TableCell align="right">İşlem</TableCell>
               </TableRow>
             </TableHead>
@@ -146,6 +150,12 @@ const Home = () => {
                   })
                   .find((hasta) => hasta.id === randevu.hastaId);
 
+                const aradigimIslem = islemlerState.islemler.find((islem) =>
+                  aradigimHasta?.islemIds.length === 1
+                    ? aradigimHasta?.islemIds[0] === islem.id
+                    : aradigimHasta?.islemIds.at(-1) === islem.id
+                );
+
                 var appointmentDate = new Date(randevu.date);
                 if (checkDate.getTime() > appointmentDate.getTime()) {
                   return false;
@@ -159,6 +169,7 @@ const Home = () => {
                     checkDate={checkDate}
                     aradigimHasta={aradigimHasta}
                     handleDelete={handleDelete}
+                    aradigimIslem={aradigimIslem}
                   />
                 );
               })}
@@ -227,7 +238,9 @@ const Home = () => {
                       <TableCell>Tarih</TableCell>
                       <TableCell>Adı</TableCell>
                       <TableCell>Soyadı</TableCell>
-                      <TableCell>Telefon Numarası</TableCell>
+                      <TableCell>Telefon</TableCell>
+                      <TableCell>Şikayet</TableCell>
+
                       <TableCell align="right">İşlem</TableCell>
                     </TableRow>
                   </TableHead>
@@ -247,6 +260,12 @@ const Home = () => {
                           }
                         })
                         .find((hasta) => hasta.id === randevu.hastaId);
+                      const aradigimIslem = islemlerState.islemler.find(
+                        (islem) =>
+                          aradigimHasta?.islemIds.length === 1
+                            ? aradigimHasta?.islemIds[0] === islem.id
+                            : aradigimHasta?.islemIds.at(-1) === islem.id
+                      );
 
                       var appointmentDate = new Date(randevu.date);
                       if (checkDate.getTime() < appointmentDate.getTime()) {
@@ -261,6 +280,7 @@ const Home = () => {
                           checkDate={checkDate}
                           aradigimHasta={aradigimHasta}
                           handleDelete={handleDelete}
+                          aradigimIslem={aradigimIslem}
                         />
                       );
                     })}

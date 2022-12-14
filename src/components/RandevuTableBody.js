@@ -34,6 +34,8 @@ const RandevuTableBody = (props) => {
         <TableCell>{props.aradigimHasta?.name}</TableCell>
         <TableCell>{props.aradigimHasta?.surname}</TableCell>
         <TableCell>{props.aradigimHasta?.phone}</TableCell>
+        <TableCell>{props.aradigimIslem?.sikayet}</TableCell>
+
         <TableCell align="right">
           <ButtonGroup variant="outlined" aria-label="outlined button group">
             {props.checkDate.getTime() < props.appointmentDate.getTime() && (
