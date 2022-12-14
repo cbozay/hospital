@@ -130,7 +130,6 @@ const Home = () => {
                 <TableCell>Soyadı</TableCell>
                 <TableCell>Telefon</TableCell>
                 <TableCell>Şikayet</TableCell>
-
                 <TableCell align="right">İşlem</TableCell>
               </TableRow>
             </TableHead>
@@ -150,10 +149,19 @@ const Home = () => {
                   })
                   .find((hasta) => hasta.id === randevu.hastaId);
 
-                const aradigimIslem = islemlerState.islemler.find((islem) =>
+                const guncelIslem = islemlerState.islemler.find((islem) =>
                   aradigimHasta?.islemIds.length === 1
                     ? aradigimHasta?.islemIds[0] === islem.id
                     : aradigimHasta?.islemIds.at(-1) === islem.id
+                );
+
+                const aradigimIslem = aradigimHasta?.islemIds.map(
+                  (hastaIslemId) => {
+                    const islemlerim = islemlerState.islemler.find(
+                      (islem) => hastaIslemId === islem.id
+                    );
+                    return islemlerim;
+                  }
                 );
 
                 var appointmentDate = new Date(randevu.date);
@@ -170,6 +178,7 @@ const Home = () => {
                     aradigimHasta={aradigimHasta}
                     handleDelete={handleDelete}
                     aradigimIslem={aradigimIslem}
+                    guncelIslem={guncelIslem}
                   />
                 );
               })}
@@ -260,12 +269,27 @@ const Home = () => {
                           }
                         })
                         .find((hasta) => hasta.id === randevu.hastaId);
-                      const aradigimIslem = islemlerState.islemler.find(
-                        (islem) =>
-                          aradigimHasta?.islemIds.length === 1
-                            ? aradigimHasta?.islemIds[0] === islem.id
-                            : aradigimHasta?.islemIds.at(-1) === islem.id
+                      const guncelIslem = islemlerState.islemler.find((islem) =>
+                        aradigimHasta?.islemIds.length === 1
+                          ? aradigimHasta?.islemIds[0] === islem.id
+                          : aradigimHasta?.islemIds.at(-1) === islem.id
                       );
+
+                      const aradigimIslem = aradigimHasta?.islemIds.map(
+                        (hastaIslemId) => {
+                          const islemlerim = islemlerState.islemler.find(
+                            (islem) => hastaIslemId === islem.id
+                          );
+                          return islemlerim;
+                        }
+                      );
+
+                      // const aradigimIslem = islemlerState.islemler.filter(
+                      //   (islem) =>
+                      //     aradigimHasta.islemIds?.map(
+                      //       (islemIds) => islemIds === islem.id
+                      //     )
+                      // );
 
                       var appointmentDate = new Date(randevu.date);
                       if (checkDate.getTime() < appointmentDate.getTime()) {
@@ -281,6 +305,7 @@ const Home = () => {
                           aradigimHasta={aradigimHasta}
                           handleDelete={handleDelete}
                           aradigimIslem={aradigimIslem}
+                          guncelIslem={guncelIslem}
                         />
                       );
                     })}
