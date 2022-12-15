@@ -128,7 +128,13 @@ const RandevuTableBody = (props) => {
           </div>
         </TableCell>
       </TableRow>
-      <RandevuDuzenleModal open={open} handleClose={handleClose} />
+      <RandevuDuzenleModal
+        guncelIslem={props.guncelIslem}
+        aradigimHasta={props.aradigimHasta}
+        randevu={props.randevu}
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   );
 };

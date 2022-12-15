@@ -9,6 +9,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { api } from "../api/api";
+import { url } from "../api/url";
+import actionTypes from "../redux/actions/actionTypes";
 
 const style = {
   position: "absolute",
@@ -22,7 +26,50 @@ const style = {
   p: 4,
 };
 const RandevuDuzenleModal = (props) => {
-  const [date, setDate] = React.useState(dayjs(new Date()));
+  const { randevularState } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [date, setDate] = React.useState(dayjs(props.randevu?.date));
+  const [sikayet, setSikayet] = React.useState(props.guncelIslem?.sikayet);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (date === "" || sikayet === "") {
+      alert("Bütün alanları girmek zorunludur");
+      return;
+    }
+
+    const searchedDate = randevularState.randevular.find(
+      (item) => item.date === date
+    );
+
+    if (searchedDate) {
+      alert("Bu hastaya ait bir randevu zaten mevcuttur.!");
+      return;
+    }
+
+    const updatedRandevu = {
+      ...props.randevu,
+      date,
+    };
+    const updatedIslem = {
+      ...props.guncelIslem,
+      sikayet,
+    };
+
+    api
+      .put(url.randevular + "/" + props.randevu.id, updatedRandevu)
+      .then((resRandevu) => {
+        dispatch({ type: actionTypes.EDIT_RANDEVU, payload: updatedRandevu });
+        api
+          .put(url.islemler + "/" + props.guncelIslem.id, updatedIslem)
+          .then((resIslem) => {
+            dispatch({ type: actionTypes.EDIT_ISLEM, payload: updatedIslem });
+            props.handleClose();
+          })
+          .catch((errIslem) => console.log(errIslem));
+      })
+      .catch((errRandevu) => console.log(errRandevu));
+  };
 
   return (
     <div>
@@ -40,6 +87,7 @@ const RandevuDuzenleModal = (props) => {
         <Fade in={props.open}>
           <Box sx={style}>
             <form
+              onSubmit={handleSubmit}
               style={{
                 marginTop: "25px",
               }}
@@ -78,6 +126,8 @@ const RandevuDuzenleModal = (props) => {
                   id="outlined-basic"
                   label="Telefon Numarası"
                   variant="outlined"
+                  value={props.aradigimHasta?.phone}
+                  disabled
                 />
               </div>
 
@@ -94,6 +144,8 @@ const RandevuDuzenleModal = (props) => {
                   id="outlined-basic"
                   label="Hasta Adı"
                   variant="outlined"
+                  value={props.aradigimHasta?.name}
+                  disabled
                 />
               </div>
 
@@ -110,6 +162,8 @@ const RandevuDuzenleModal = (props) => {
                   id="outlined-basic"
                   label="Hasta Soyadı"
                   variant="outlined"
+                  value={props.aradigimHasta?.surname}
+                  disabled
                 />
               </div>
 
@@ -126,6 +180,8 @@ const RandevuDuzenleModal = (props) => {
                   id="outlined-basic"
                   label="Şikayet"
                   variant="outlined"
+                  value={sikayet}
+                  onChange={(event) => setSikayet(event.target.value)}
                 />
               </div>
               <div
