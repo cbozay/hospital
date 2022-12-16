@@ -68,6 +68,10 @@ const Home = () => {
     return new Date(b.date) - new Date(a.date);
   });
 
+  const guncelRandevular = randevularState.randevular.filter(
+    (randevu) => new Date(randevu.date).getTime() > new Date().getTime()
+  );
+
   const handleDelete = (id) => {
     api
       .delete(url.randevular + "/" + id)
@@ -103,9 +107,27 @@ const Home = () => {
             style={{
               marginBottom: "20px",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
             }}
           >
+            <p
+              style={{
+                opacity: "0.8",
+              }}
+            >
+              <b>*</b>
+              <b
+                style={{
+                  borderBottom: "1px solid",
+                }}
+              >
+                Sistemde kayıtlı bulunan güncel randevu sayısı:
+                <big>
+                  {" "}
+                  <b>{guncelRandevular.length}</b>
+                </big>
+              </b>
+            </p>
             <Button
               onClick={() => navigate("/randevu-ekle")}
               variant="contained"

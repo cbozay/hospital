@@ -34,10 +34,11 @@ const RandevuTableBody = (props) => {
         style={{
           backgroundColor:
             props.appointmentDate.getTime() - props.checkDate.getTime() <=
-              300000 && "yellow",
-          backgroundColor:
-            props.appointmentDate.getTime() - props.checkDate.getTime() < 0 &&
-            "#ffcdd2",
+              300000 &&
+            0 < props.appointmentDate.getTime() - props.checkDate.getTime()
+              ? "#e5f2ae"
+              : props.appointmentDate.getTime() - props.checkDate.getTime() <
+                  0 && "#f7d2d8",
         }}
         key={props.randevu.id}
       >
@@ -95,7 +96,7 @@ const RandevuTableBody = (props) => {
         <TableCell align="right">
           <div
             style={{
-              width: "310px",
+              width: "305px",
               display: "flex",
               justifyContent: "end",
             }}

@@ -95,9 +95,27 @@ const Hastalar = (props) => {
             style={{
               marginBottom: "20px",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
             }}
           >
+            <p
+              style={{
+                opacity: "0.8",
+              }}
+            >
+              <b>*</b>
+              <b
+                style={{
+                  borderBottom: "1px solid",
+                }}
+              >
+                Sistemde kayıtlı bulunan güncel randevu sayısı:
+                <big>
+                  {" "}
+                  <b>{hastalarState.hastalar.length}</b>
+                </big>
+              </b>
+            </p>
             <Button onClick={() => navigate("/hasta-ekle")} variant="contained">
               Hasta Ekle
             </Button>
