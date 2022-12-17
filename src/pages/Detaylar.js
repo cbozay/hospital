@@ -79,10 +79,14 @@ const Detaylar = () => {
   return (
     <div>
       <Header />
-      <div className="d-flex justify-content-center my-4">
+      <div
+        className="d-flex justify-content-center my-4"
+        style={{ paddingTop: "75px" }}
+      >
         <div
           className="border rounded p-4"
           style={{
+            backgroundColor: "#fff",
             minWidth: "450px",
             boxShadow:
               " rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
@@ -135,6 +139,7 @@ const Detaylar = () => {
             width: "300px",
             border: "1px solid",
             borderRadius: "5px",
+            backgroundColor: "#fff",
           }}
           onClick={handleClick}
         >
@@ -158,6 +163,7 @@ const Detaylar = () => {
                       border: "1px solid",
                       borderRadius: "5px",
                       padding: "10px",
+                      backgroundColor: "#fff",
                     }}
                   >
                     <div
@@ -173,6 +179,7 @@ const Detaylar = () => {
                     <div
                       style={{
                         display: "flex",
+                        width: "100%",
                       }}
                     >
                       <div>
@@ -215,33 +222,26 @@ const Detaylar = () => {
                         >
                           {hastaIslemi.uygulananTedavi ||
                           hastaIslemi.yazilanIlaclar.length ? (
-                            <>
+                            <div>
                               <div>{hastaIslemi.uygulananTedavi}</div>
                               <div>{hastaIslemi.yazilanIlaclar}</div>
-                            </>
-                          ) : (
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <button
-                                onClick={() => {
-                                  setButtonHandler(true);
-                                  setHastaIslem(hastaIslemi);
-                                }}
-                                style={{
-                                  fontSize: "15px",
-                                  height: "52px",
-                                  marginTop: "5px",
-                                  width: "100%",
-                                }}
-                                className="btn btn-sm btn-outline-primary"
-                              >
-                                Tedavi & İlaç Ekle
-                              </button>
                             </div>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setButtonHandler(true);
+                                setHastaIslem(hastaIslemi);
+                              }}
+                              style={{
+                                fontSize: "15px",
+                                height: "52px",
+                                marginTop: "5px",
+                                width: "100%",
+                              }}
+                              className="btn btn-sm btn-outline-primary"
+                            >
+                              Tedavi & İlaç Ekle
+                            </button>
                           )}
                         </div>
                       </div>

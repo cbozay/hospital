@@ -13,6 +13,7 @@ import { url } from "../api/url";
 import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "../redux/actions/actionTypes";
 import { useState } from "react";
+import { Paper, TableContainer } from "@mui/material";
 
 const RandevuEkle = (props) => {
   const { hastalarState, randevularState } = useSelector((state) => state);
@@ -169,118 +170,135 @@ const RandevuEkle = (props) => {
   return (
     <div>
       <Header />
-      <form
+      <div
         style={{
+          display: "flex",
+          justifyContent: "center",
           marginTop: "75px",
         }}
-        onSubmit={handleSubmit}
       >
-        <div
+        <TableContainer
           style={{
-            display: "flex",
-            justifyContent: "center",
+            backgroungColor: "#fff",
+
+            width: "500px",
           }}
+          component={Paper}
         >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker
-              label="Date&Time picker"
-              value={date}
-              onChange={(newValue) => setDate(newValue)}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-          {/* <input
+          <form
+            style={{
+              marginTop: "25px",
+            }}
+            onSubmit={handleSubmit}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Date&Time picker"
+                  value={date}
+                  onChange={(newValue) => setDate(newValue)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+              {/* <input
             value={date}
             // defaultValue={new Date("dd/mm/yyyy hh:mm")}
             onChange={(event) => setDate(event.target.value)}
             type={"datetime-local"}
           /> */}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            type={"number"}
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Telefon Numarası"
-            variant="outlined"
-            value={phone}
-            onChange={handlePhoneChange}
-          />
-        </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                type={"number"}
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Telefon Numarası"
+                variant="outlined"
+                value={phone}
+                onChange={handlePhoneChange}
+              />
+            </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            type={"text"}
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Hasta Adı"
-            variant="outlined"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            disabled={hasHasta}
-          />
-        </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                type={"text"}
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Hasta Adı"
+                variant="outlined"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                disabled={hasHasta}
+              />
+            </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            type={"text"}
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Hasta Soyadı"
-            variant="outlined"
-            value={surname}
-            onChange={(event) => setSurname(event.target.value)}
-            disabled={hasHasta}
-          />
-        </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                type={"text"}
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Hasta Soyadı"
+                variant="outlined"
+                value={surname}
+                onChange={(event) => setSurname(event.target.value)}
+                disabled={hasHasta}
+              />
+            </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            type={"text"}
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Şikayet"
-            variant="outlined"
-            value={sikayet}
-            onChange={(event) => setSikayet(event.target.value)}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <Button type="submit" variant="contained">
-            Kaydet
-          </Button>
-        </div>
-      </form>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                type={"text"}
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Şikayet"
+                variant="outlined"
+                value={sikayet}
+                onChange={(event) => setSikayet(event.target.value)}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <Button type="submit" variant="contained">
+                Kaydet
+              </Button>
+            </div>
+          </form>
+        </TableContainer>
+      </div>
     </div>
   );
 };

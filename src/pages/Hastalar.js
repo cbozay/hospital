@@ -88,7 +88,7 @@ const Hastalar = (props) => {
       <Header />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <TableContainer
-          style={{ marginTop: "50px", width: 900 }}
+          style={{ marginTop: "75px", width: 900 }}
           component={Paper}
         >
           <div
@@ -109,7 +109,7 @@ const Hastalar = (props) => {
                   borderBottom: "1px solid",
                 }}
               >
-                Sistemde kayıtlı bulunan güncel randevu sayısı:
+                Sistemde kayıtlı bulunan toplam hasta sayısı:
                 <big>
                   {" "}
                   <b>{hastalarState.hastalar.length}</b>
@@ -141,8 +141,8 @@ const Hastalar = (props) => {
             <TableBody>
               {hastalarState.hastalar.length === 0 && (
                 <TableRow>
-                  <TableCell align="center" colSpan={4}>
-                    Kayıtlı Hasta Bulunmamaktadır
+                  <TableCell align="center" colSpan={12}>
+                    <big> Sistemde kayıtlı herhangi bir hasta yoktur.</big>
                   </TableCell>
                 </TableRow>
               )}

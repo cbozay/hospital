@@ -21,6 +21,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import Popover from "@mui/material/Popover";
 import { Typography } from "@mui/material";
+import BackDrop from "../components/Backdrop";
 
 const Home = () => {
   const { hastalarState, randevularState, islemlerState } = useSelector(
@@ -65,11 +66,15 @@ const Home = () => {
   }, []);
 
   const sortedRandevular = randevularState.randevular.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
+    return new Date(a.date) - new Date(b.date);
   });
 
   const guncelRandevular = randevularState.randevular.filter(
     (randevu) => new Date(randevu.date).getTime() > new Date().getTime()
+  );
+
+  const gecmisRandevular = randevularState.randevular.filter(
+    (randevu) => new Date(randevu.date).getTime() < new Date().getTime()
   );
 
   const handleDelete = (id) => {
@@ -84,7 +89,7 @@ const Home = () => {
   };
 
   if (randevularState.success !== true || hastalarState.success !== true) {
-    return <h1>Loading...</h1>;
+    return <BackDrop />;
   }
 
   return (
@@ -98,7 +103,7 @@ const Home = () => {
       >
         <TableContainer
           style={{
-            marginTop: "50px",
+            marginTop: "75px",
             width: 900,
           }}
           component={Paper}
@@ -128,6 +133,7 @@ const Home = () => {
                 </big>
               </b>
             </p>
+
             <Button
               onClick={() => navigate("/randevu-ekle")}
               variant="contained"
@@ -190,7 +196,6 @@ const Home = () => {
                 if (checkDate.getTime() > appointmentDate.getTime()) {
                   return false;
                 }
-
                 return (
                   <RandevuTableBody
                     key={randevu.id}
@@ -223,7 +228,12 @@ const Home = () => {
         >
           <Box>
             <FormControlLabel
-              style={{ marginLeft: "0px" }}
+              style={{
+                marginLeft: "0px",
+
+                borderRadius: "5px",
+                backgroundColor: "#fff",
+              }}
               control={<Switch checked={checked} onChange={handleChange} />}
               aria-owns={open ? "mouse-over-popover" : undefined}
               aria-haspopup="true"
@@ -277,6 +287,15 @@ const Home = () => {
                   </TableHead>
 
                   <TableBody>
+                    {gecmisRandevular.length === 0 && (
+                      <TableRow>
+                        <TableCell align="center" colSpan={12}>
+                          <big>
+                            Sistemde süresi geçen herhangi bir randevu yoktur.
+                          </big>
+                        </TableCell>
+                      </TableRow>
+                    )}
                     {sortedRandevular.map((randevu) => {
                       const aradigimHasta = hastalarState.hastalar
                         .filter((hasta) => {

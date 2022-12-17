@@ -25,9 +25,12 @@ const RandevuTableBody = (props) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //search
   if (!props.aradigimHasta?.name) {
     return false;
   }
+  //search
+
   return (
     <>
       <TableRow

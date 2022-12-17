@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import HideImageOutlinedIcon from "@mui/icons-material/HideImageOutlined";
@@ -9,7 +9,8 @@ import { api } from "../api/api";
 import { url } from "../api/url";
 import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "../redux/actions/actionTypes";
-import { TextField } from "@mui/material";
+import { TableContainer, TextField } from "@mui/material";
+import Paper from "@mui/material/Paper";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -99,158 +100,170 @@ const HastaEkle = (props) => {
   return (
     <div>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 0px",
-        }}
-      >
-        <div
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <TableContainer
+          component={Paper}
           style={{
-            height: "250px",
-            width: "175px",
+            backgroungColor: "#fff",
             border: "1px solid",
-            borderRadius: "50%",
+            width: "500px",
+            marginTop: "75px",
           }}
         >
-          {img ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "5px",
+            }}
+          >
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                style={{
-                  height: "250px",
-                  width: "100%",
-                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 40px",
-                  borderRadius: "50%",
-                }}
-                src={img}
-                alt="aa"
-              />
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
                 height: "250px",
+                width: "175px",
+                border: "1px solid",
+                borderRadius: "50%",
               }}
             >
-              <HideImageOutlinedIcon
-                style={{
-                  height: "100px",
-                  width: "100%",
-                }}
+              {img ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img
+                    style={{
+                      height: "250px",
+                      width: "100%",
+                      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 40px",
+                      borderRadius: "50%",
+                    }}
+                    src={img}
+                    alt="aa"
+                  />
+                </div>
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "250px",
+                  }}
+                >
+                  <HideImageOutlinedIcon
+                    style={{
+                      height: "100px",
+                      width: "100%",
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <form
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "20px 0px",
+            }}
+            onSubmit={handleChange}
+          >
+            <Button
+              style={{ width: "350px", border: "1px solid #bbb" }}
+              variant="raised"
+              type="submit"
+            >
+              <input
+                accept="image/*"
+                type={"file"}
+                onChange={(event) => setFile(event.target.files[0])}
+              />
+              <FileUploadIcon style={{ fontSize: "40px" }} />
+            </Button>
+          </form>
+
+          <form onSubmit={handleSubmit}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Hasta Adı"
+                variant="outlined"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
             </div>
-          )}
-        </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Hasta Soyadı"
+                variant="outlined"
+                value={surname}
+                onChange={(event) => setSurname(event.target.value)}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                type={"number"}
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Telefon Numarası"
+                variant="outlined"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <TextField
+                style={{ width: "350px" }}
+                id="outlined-basic"
+                label="Hastanın Şikayeti"
+                variant="outlined"
+                value={sikayet}
+                onChange={(event) => setSikayet(event.target.value)}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "20px 0px",
+              }}
+            >
+              <Button type="submit" variant="contained">
+                Kaydet
+              </Button>
+            </div>
+          </form>
+        </TableContainer>
       </div>
-      <form
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 0px",
-        }}
-        onSubmit={handleChange}
-      >
-        <Button
-          style={{ width: "350px", border: "1px solid #bbb" }}
-          variant="raised"
-          type="submit"
-        >
-          <input
-            accept="image/*"
-            type={"file"}
-            onChange={(event) => setFile(event.target.files[0])}
-          />
-          <FileUploadIcon style={{ fontSize: "40px" }} />
-        </Button>
-      </form>
-
-      <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Hasta Adı"
-            variant="outlined"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Hasta Soyadı"
-            variant="outlined"
-            value={surname}
-            onChange={(event) => setSurname(event.target.value)}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            type={"number"}
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Telefon Numarası"
-            variant="outlined"
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <TextField
-            style={{ width: "350px" }}
-            id="outlined-basic"
-            label="Hastanın Şikayeti"
-            variant="outlined"
-            value={sikayet}
-            onChange={(event) => setSikayet(event.target.value)}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}
-        >
-          <Button type="submit" variant="contained">
-            Kaydet
-          </Button>
-        </div>
-      </form>
     </div>
   );
 };
