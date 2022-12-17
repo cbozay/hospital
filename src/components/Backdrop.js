@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const BackDrop = () => {
   return (
-    <div>
+    <div style={{ zIndex: "3" }}>
       <Backdrop
         sx={{
           color: "#fff",

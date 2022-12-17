@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import { Button, SwipeableDrawer } from "@mui/material";
+import BackDrop from "../components/Backdrop";
 
 const RandevuDetay = () => {
   const params = useParams();
@@ -76,7 +77,7 @@ const RandevuDetay = () => {
   }, []);
 
   if (hasta === null || randevu === null || islemlerim === null) {
-    <h1>Loading...</h1>;
+    <BackDrop />;
     return;
   }
 

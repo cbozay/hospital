@@ -65,7 +65,7 @@ const Header = (props) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box style={{ zIndex: "3" }} sx={{ flexGrow: 1 }}>
       <AppBar position="absolute">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

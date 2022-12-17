@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "../redux/actions/actionTypes";
 import { useState } from "react";
 import { Paper, TableContainer } from "@mui/material";
+import BackDrop from "../components/Backdrop";
 
 const RandevuEkle = (props) => {
   const { hastalarState, randevularState } = useSelector((state) => state);
@@ -165,7 +166,7 @@ const RandevuEkle = (props) => {
   };
 
   if (hastalarState.success !== true || randevularState.success !== true) {
-    return <h1>Loading...</h1>;
+    return <BackDrop />;
   }
   return (
     <div>

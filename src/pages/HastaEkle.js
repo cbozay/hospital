@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import HideImageOutlinedIcon from "@mui/icons-material/HideImageOutlined";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "../redux/actions/actionTypes";
 import { TableContainer, TextField } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import BackDrop from "../components/Backdrop";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const HastaEkle = (props) => {
   };
 
   if (hastalarState.success !== true) {
-    return <h1>Loading...</h1>;
+    return <BackDrop />;
   }
 
   return (

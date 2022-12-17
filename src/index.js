@@ -11,6 +11,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <div className="main">
+        <div className="overlay"></div>
         <video src={animation} autoPlay loop muted />
         <div className="content">
           <App />

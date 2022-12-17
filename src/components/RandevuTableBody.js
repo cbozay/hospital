@@ -62,7 +62,13 @@ const RandevuTableBody = (props) => {
             >
               göster
             </Button>
-            <Popper id={id} open={openSikayet} anchorEl={anchorEl} transition>
+            <Popper
+              style={{ zIndex: "2" }}
+              id={id}
+              open={openSikayet}
+              anchorEl={anchorEl}
+              transition
+            >
               {({ TransitionProps }) => (
                 <Fade {...TransitionProps} timeout={350}>
                   <Box

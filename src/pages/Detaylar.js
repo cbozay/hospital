@@ -14,6 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import BackDrop from "../components/Backdrop";
 
 const Detaylar = () => {
   const { hastaDetayId } = useParams();
@@ -72,7 +73,7 @@ const Detaylar = () => {
   }, [islemlerState.islemler]);
 
   if (hasta === null) {
-    <h1>Loading...</h1>;
+    <BackDrop />;
     return;
   }
 

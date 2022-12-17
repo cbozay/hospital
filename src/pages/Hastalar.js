@@ -18,6 +18,7 @@ import { api } from "../api/api";
 import { url } from "../api/url";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonGroup } from "@mui/material";
+import BackDrop from "../components/Backdrop";
 
 const Hastalar = (props) => {
   const dispatch = useDispatch();
@@ -80,7 +81,7 @@ const Hastalar = (props) => {
   };
 
   if (hastalarState.success !== true || randevularState.success !== true) {
-    return <h1>Loading...</h1>;
+    return <BackDrop />;
   }
 
   return (
