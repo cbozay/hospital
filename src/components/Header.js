@@ -12,6 +12,7 @@ import InputBase from "@mui/material/InputBase";
 
 import "../assets/styles/generalStyle.css";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -57,6 +58,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header = (props) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: actionTypes.SEARCH_HASTALAR,
+      payload: "",
+    });
+  }, []);
   const handleChange = (event) => {
     dispatch({
       type: actionTypes.SEARCH_HASTALAR,

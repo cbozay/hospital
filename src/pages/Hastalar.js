@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import Button from "@mui/material/Button";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import Pagination from "@mui/material/Pagination";
 
 import actionTypes from "../redux/actions/actionTypes";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +28,16 @@ const Hastalar = (props) => {
   const [updateComponent, setUpdateComponent] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  const startIndex = (page - 1) * 5;
+  const paginatedHastalar = hastalarState.hastalar.slice(
+    startIndex,
+    startIndex + 5
+  );
   // console.log(hastalarState.search);
 
   // useEffect(() => {
@@ -94,7 +105,6 @@ const Hastalar = (props) => {
         >
           <div
             style={{
-              marginBottom: "20px",
               display: "flex",
               justifyContent: "space-between",
             }}
@@ -117,7 +127,11 @@ const Hastalar = (props) => {
                 </big>
               </b>
             </p>
-            <Button onClick={() => navigate("/hasta-ekle")} variant="contained">
+            <Button
+              onClick={() => navigate("/hasta-ekle")}
+              variant="outlined"
+              style={{ border: "2px solid", margin: 1 }}
+            >
               Hasta Ekle
             </Button>
           </div>
@@ -147,121 +161,234 @@ const Hastalar = (props) => {
                   </TableCell>
                 </TableRow>
               )}
-              {hastalarState.hastalar
-                .filter((hasta) => {
-                  if (hastalarState.search === "") {
-                    return hasta;
-                  } else if (
-                    hasta.name
-                      .toLowerCase()
-                      .includes(hastalarState.search.toLowerCase())
-                  ) {
-                    return hasta;
-                  }
-                })
-                .map((hasta) => (
-                  <TableRow
-                    key={hasta.id}
-                    sx={{
-                      "& th": {
-                        fontSize: "1.25rem",
-                      },
-                    }}
-                  >
-                    <TableCell
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
+              {hastalarState.search
+                ? hastalarState.hastalar
+                    .filter((hasta) => {
+                      if (
+                        hasta.name
+                          .toLowerCase()
+                          .includes(hastalarState.search.toLowerCase())
+                      ) {
+                        return hasta;
+                      }
+                    })
+                    .map((hasta) => (
+                      <TableRow
+                        key={hasta.id}
+                        sx={{
+                          "& th": {
+                            fontSize: "1.25rem",
+                          },
+                        }}
+                      >
+                        <TableCell
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
 
-                        // border: "none",
-                        borderRadius: "50%",
+                            // border: "none",
+                            borderRadius: "50%",
+                          }}
+                        >
+                          {hasta.img ? (
+                            <div
+                              style={{
+                                width: "35px",
+                                height: "40px",
+                                border: "1px solid",
+                                borderRadius: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                overflow: "hidden",
+                              }}
+                            >
+                              <img
+                                style={{
+                                  width: "34px",
+                                  borderRadius: "50%",
+                                  height: "49px",
+                                }}
+                                src={hasta.img}
+                                alt="resim"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                width: "35px",
+                                height: "40px",
+                                border: "1px solid",
+                                borderRadius: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <PermIdentityIcon
+                                style={{
+                                  fontSize: "40px",
+                                  // border: "1px solid",
+                                  width: "35px",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            </div>
+                          )}
+                        </TableCell>
+                        <TableCell>{hasta.name}</TableCell>
+                        <TableCell>{hasta.surname}</TableCell>
+                        <TableCell>{hasta.phone}</TableCell>
+                        <TableCell align="right">
+                          <ButtonGroup
+                            variant="outlined"
+                            aria-label="outlined button group"
+                          >
+                            <Button
+                              onClick={() => {
+                                setOpenEditModal(true);
+                                setSelectedHasta(hasta);
+                              }}
+                              variant="outlined"
+                              color="secondary"
+                            >
+                              Düzenle
+                            </Button>
+                            <Button
+                              onClick={() => handleDeleteHasta(hasta)}
+                              variant="outlined"
+                              color="error"
+                            >
+                              Sİl
+                            </Button>
+                            <Button
+                              onClick={() => navigate(`/detaylar/${hasta.id}`)}
+                              variant="outlined"
+                              color="primary"
+                            >
+                              Detaylar
+                            </Button>
+                          </ButtonGroup>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                : paginatedHastalar.map((hasta) => (
+                    <TableRow
+                      key={hasta.id}
+                      sx={{
+                        "& th": {
+                          fontSize: "1.25rem",
+                        },
                       }}
                     >
-                      {hasta.img ? (
-                        <div
-                          style={{
-                            width: "35px",
-                            height: "40px",
-                            border: "1px solid",
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            overflow: "hidden",
-                          }}
-                        >
-                          <img
-                            style={{
-                              width: "34px",
-                              borderRadius: "50%",
-                              height: "49px",
-                            }}
-                            src={hasta.img}
-                            alt="resim"
-                          />
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            width: "35px",
-                            height: "40px",
-                            border: "1px solid",
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <PermIdentityIcon
-                            style={{
-                              fontSize: "40px",
-                              // border: "1px solid",
-                              width: "35px",
-                              borderRadius: "50%",
-                            }}
-                          />
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell>{hasta.name}</TableCell>
-                    <TableCell>{hasta.surname}</TableCell>
-                    <TableCell>{hasta.phone}</TableCell>
-                    <TableCell align="right">
-                      <ButtonGroup
-                        variant="outlined"
-                        aria-label="outlined button group"
+                      <TableCell
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+
+                          // border: "none",
+                          borderRadius: "50%",
+                        }}
                       >
-                        <Button
-                          onClick={() => {
-                            setOpenEditModal(true);
-                            setSelectedHasta(hasta);
-                          }}
+                        {hasta.img ? (
+                          <div
+                            style={{
+                              width: "35px",
+                              height: "40px",
+                              border: "1px solid",
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <img
+                              style={{
+                                width: "34px",
+                                borderRadius: "50%",
+                                height: "49px",
+                              }}
+                              src={hasta.img}
+                              alt="resim"
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              width: "35px",
+                              height: "40px",
+                              border: "1px solid",
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <PermIdentityIcon
+                              style={{
+                                fontSize: "40px",
+                                // border: "1px solid",
+                                width: "35px",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>{hasta.name}</TableCell>
+                      <TableCell>{hasta.surname}</TableCell>
+                      <TableCell>{hasta.phone}</TableCell>
+                      <TableCell align="right">
+                        <ButtonGroup
                           variant="outlined"
-                          color="secondary"
+                          aria-label="outlined button group"
                         >
-                          Düzenle
-                        </Button>
-                        <Button
-                          onClick={() => handleDeleteHasta(hasta)}
-                          variant="outlined"
-                          color="error"
-                        >
-                          Sİl
-                        </Button>
-                        <Button
-                          onClick={() => navigate(`/detaylar/${hasta.id}`)}
-                          variant="outlined"
-                          color="primary"
-                        >
-                          Detaylar
-                        </Button>
-                      </ButtonGroup>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                          <Button
+                            onClick={() => {
+                              setOpenEditModal(true);
+                              setSelectedHasta(hasta);
+                            }}
+                            variant="outlined"
+                            color="secondary"
+                          >
+                            Düzenle
+                          </Button>
+                          <Button
+                            onClick={() => handleDeleteHasta(hasta)}
+                            variant="outlined"
+                            color="error"
+                          >
+                            Sİl
+                          </Button>
+                          <Button
+                            onClick={() => navigate(`/detaylar/${hasta.id}`)}
+                            variant="outlined"
+                            color="primary"
+                          >
+                            Detaylar
+                          </Button>
+                        </ButtonGroup>
+                      </TableCell>
+                    </TableRow>
+                  ))}
             </TableBody>
           </Table>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "5px",
+            }}
+          >
+            <Pagination
+              page={page}
+              onChange={handleChange}
+              count={Math.ceil(hastalarState.hastalar.length / 5)}
+            />
+          </div>
         </TableContainer>
       </div>
       <EditHastaModal

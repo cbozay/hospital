@@ -110,7 +110,6 @@ const Home = () => {
         >
           <div
             style={{
-              marginBottom: "20px",
               display: "flex",
               justifyContent: "space-between",
             }}
@@ -136,7 +135,8 @@ const Home = () => {
 
             <Button
               onClick={() => navigate("/randevu-ekle")}
-              variant="contained"
+              variant="outlined"
+              style={{ border: "2px solid", margin: 1 }}
             >
               Randevu Ekle
             </Button>

@@ -101,7 +101,12 @@ const HastaEkle = (props) => {
   return (
     <div>
       <Header />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <TableContainer
           component={Paper}
           style={{

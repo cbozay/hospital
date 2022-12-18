@@ -175,6 +175,7 @@ const RandevuEkle = (props) => {
         style={{
           display: "flex",
           justifyContent: "center",
+
           marginTop: "75px",
         }}
       >
