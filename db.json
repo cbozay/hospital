@@ -103,6 +103,16 @@
         "1671186367221"
       ],
       "phone": "05555555551"
+    },
+    {
+      "id": "1671391557025",
+      "name": "Aysun",
+      "surname": "Kara",
+      "phone": "05555555550",
+      "islemIds": [
+        "1671391556593"
+      ],
+      "img": ""
     }
   ],
   "islemler": [
@@ -181,6 +191,12 @@
     {
       "id": "1671186367221",
       "sikayet": "Tırnak Kırılması",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1671391556593",
+      "sikayet": "Görme Problemi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     }
