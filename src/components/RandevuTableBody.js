@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@mui/material";
+import { Modal, TableCell, TableRow, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import React from "react";
 import { ButtonGroup } from "@mui/material";
@@ -7,6 +7,9 @@ import RandevuDuzenleModal from "./RandevuDuzenleModal";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
+
+import DeleteModal from "./DeleteRandevuModal";
+import DeleteRandevuModal from "./DeleteRandevuModal";
 
 const RandevuTableBody = (props) => {
   const navigate = useNavigate();
@@ -23,7 +26,12 @@ const RandevuTableBody = (props) => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setOpenDelete(false);
+  };
+
+  const [openDelete, setOpenDelete] = React.useState(false);
 
   //search
   if (!props.aradigimHasta?.name) {
@@ -122,7 +130,7 @@ const RandevuTableBody = (props) => {
               <Button
                 variant="outlined"
                 color="error"
-                onClick={() => props.handleDelete(props.randevu.id)}
+                onClick={() => setOpenDelete(true)}
               >
                 Sİl
               </Button>
@@ -143,6 +151,14 @@ const RandevuTableBody = (props) => {
         randevu={props.randevu}
         open={open}
         handleClose={handleClose}
+      />
+      <DeleteRandevuModal
+        openDelete={openDelete}
+        handleClose={handleClose}
+        aradigimHasta={props.aradigimHasta}
+        randevu={props.randevu}
+        setOpenDelete={() => setOpenDelete(false)}
+        handleDelete={() => props.handleDelete(props.randevu.id)}
       />
     </>
   );
