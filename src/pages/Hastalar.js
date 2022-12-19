@@ -5,7 +5,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
@@ -101,8 +100,12 @@ const Hastalar = (props) => {
         style={{ display: "flex", justifyContent: "center", marginTop: "75px" }}
       >
         <TableContainer
-          style={{ marginTop: "75px", width: 900 }}
-          component={Paper}
+          style={{
+            marginTop: "75px",
+            width: 900,
+            borderRadius: "5px",
+            backgroundColor: "#fff",
+          }}
         >
           <div
             style={{
@@ -113,13 +116,24 @@ const Hastalar = (props) => {
             <p
               style={{
                 opacity: "0.8",
+                border: "1px solid",
+                backgroundColor: "#ddd",
+                padding: "5px",
+                borderRadius: "5px 0 15px 0",
+
+                height: "35px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <b>*</b>
               <b
-                style={{
-                  borderBottom: "1px solid",
-                }}
+                style={
+                  {
+                    // borderBottom: "1px solid",
+                  }
+                }
               >
                 Sistemde kayıtlı bulunan toplam hasta sayısı:
                 <big>

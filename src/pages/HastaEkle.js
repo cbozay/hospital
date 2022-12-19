@@ -120,7 +120,7 @@ const HastaEkle = (props) => {
             style={{
               display: "flex",
               justifyContent: "center",
-              marginTop: "5px",
+              marginTop: "25px",
             }}
           >
             <div

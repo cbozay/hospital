@@ -78,6 +78,9 @@ const Header = (props) => {
         style={{
           position: "fixed",
           border: "5px solid",
+          borderRadius: "0 0 60% 60%",
+          height: "100px",
+          background: "#2E3B55",
         }}
       >
         <Toolbar>
