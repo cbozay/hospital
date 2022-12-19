@@ -12,6 +12,7 @@ import actionTypes from "../redux/actions/actionTypes";
 import { TableContainer, TextField } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import BackDrop from "../components/Backdrop";
+import KaydetmeAlert from "../components/KaydetmeAlert";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -25,6 +26,14 @@ const HastaEkle = (props) => {
   const [file, setFile] = useState(null);
   const [img, setImg] = useState("");
   console.log(img);
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -45,7 +54,7 @@ const HastaEkle = (props) => {
     };
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (name === "" || surname === "" || phone === "" || sikayet === "") {
@@ -87,11 +96,14 @@ const HastaEkle = (props) => {
           .post(url.hastalar, newHasta)
           .then((res) => {
             dispatch({ type: actionTypes.ADD_HASTA, payload: newHasta });
-            navigate("/hastalar");
           })
           .catch((err) => console.log("HastaEkle sayfası postHasta err", err));
       })
       .catch((err) => console.log("HastaEkle sayfası postIslem err", err));
+    await setOpen(true);
+    await setTimeout(() => {
+      navigate("/hastalar");
+    }, 1000);
   };
 
   if (hastalarState.success !== true) {
@@ -270,6 +282,7 @@ const HastaEkle = (props) => {
           </form>
         </TableContainer>
       </div>
+      {open === true && <KaydetmeAlert open={open} handleClose={handleClose} />}
     </div>
   );
 };

@@ -39,9 +39,9 @@ const RandevuTableBody = (props) => {
             props.appointmentDate.getTime() - props.checkDate.getTime() <=
               300000 &&
             0 < props.appointmentDate.getTime() - props.checkDate.getTime()
-              ? "#e5f2ae"
+              ? "#edf50a"
               : props.appointmentDate.getTime() - props.checkDate.getTime() <
-                  0 && "#f7d2d8",
+                  0 && "#edb1ad",
         }}
         key={props.randevu.id}
       >

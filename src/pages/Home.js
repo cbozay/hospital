@@ -22,6 +22,8 @@ import Popover from "@mui/material/Popover";
 import { Pagination, Typography } from "@mui/material";
 import BackDrop from "../components/Backdrop";
 
+import SilmeAlert from "../components/SilmeAlert";
+
 const Home = () => {
   const { hastalarState, randevularState, islemlerState } = useSelector(
     (state) => state
@@ -78,7 +80,15 @@ const Home = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
+  const openPop = Boolean(anchorEl);
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   //   WARNING:It has been made possible the automatic control mechanism
   // to realize refreshment of the page one time within 1 second.
@@ -102,6 +112,7 @@ const Home = () => {
       .delete(url.randevular + "/" + id)
       .then((resRandevu) => {
         dispatch({ type: actionTypes.DELETE_RANDEVU, payload: id });
+        setOpen(true);
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +126,6 @@ const Home = () => {
   return (
     <div>
       <Header />
-
       <div
         style={{
           display: "flex",
@@ -195,6 +205,13 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {!guncelRandevular.length && (
+                <TableRow>
+                  <TableCell align="center" colSpan={12}>
+                    <big> Sistemde kayıtlı güncel bir randevu yoktur.</big>
+                  </TableCell>
+                </TableRow>
+              )}
               {hastalarState.search
                 ? sortedRandevular.map((randevu) => {
                     const aradigimHasta = hastalarState.hastalar
@@ -303,7 +320,6 @@ const Home = () => {
           </div>
         </TableContainer>
       </div>
-
       <div
         style={{
           display: "flex",
@@ -329,7 +345,7 @@ const Home = () => {
                 backgroundColor: "#fff",
               }}
               control={<Switch checked={checked} onChange={handleChange} />}
-              aria-owns={open ? "mouse-over-popover" : undefined}
+              aria-owns={openPop ? "mouse-over-popover" : undefined}
               aria-haspopup="true"
               onMouseEnter={handlePopoverOpen}
               onMouseLeave={handlePopoverClose}
@@ -343,7 +359,7 @@ const Home = () => {
                 marginLeft: "59px",
                 marginTop: "1px",
               }}
-              open={open}
+              open={openPop}
               anchorEl={anchorEl}
               anchorOrigin={{
                 // vertical: "bottom",
@@ -499,14 +515,17 @@ const Home = () => {
               margin: "5px",
             }}
           >
-            <Pagination
-              page={pageGecmis}
-              onChange={handleSearchGecmis}
-              count={Math.ceil(gecmisRandevular.length / 5)}
-            />
+            {checked && (
+              <Pagination
+                page={pageGecmis}
+                onChange={handleSearchGecmis}
+                count={Math.ceil(gecmisRandevular.length / 5)}
+              />
+            )}
           </div>
         </TableContainer>
       </div>
+      {open && <SilmeAlert open={open} handleClose={handleClose} />}; ;
     </div>
   );
 };

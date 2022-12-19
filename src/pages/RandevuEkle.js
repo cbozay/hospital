@@ -15,11 +15,20 @@ import actionTypes from "../redux/actions/actionTypes";
 import { useState } from "react";
 import { Paper, TableContainer } from "@mui/material";
 import BackDrop from "../components/Backdrop";
+import KaydetmeAlert from "../components/KaydetmeAlert";
 
 const RandevuEkle = (props) => {
   const { hastalarState, randevularState } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const [date, setDate] = React.useState(dayjs(new Date()));
 
@@ -98,6 +107,7 @@ const RandevuEkle = (props) => {
           dispatch({ type: actionTypes.EDIT_HASTA, payload: updatedHasta });
         })
         .catch((err) => console.log(err));
+      await setOpen(true);
       // Json-server düşmesin diye yazıldı
       setTimeout(() => {
         navigate("/");
@@ -143,7 +153,8 @@ const RandevuEkle = (props) => {
           dispatch({ type: actionTypes.ADD_HASTA, payload: newHasta });
         })
         .catch((err) => console.log(err));
-      setTimeout(() => {
+      await setOpen(true);
+      await setTimeout(() => {
         navigate("/");
       }, 1000);
     }
@@ -301,6 +312,7 @@ const RandevuEkle = (props) => {
           </form>
         </TableContainer>
       </div>
+      {open && <KaydetmeAlert open={open} handleClose={handleClose} />}
     </div>
   );
 };

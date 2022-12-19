@@ -19,6 +19,8 @@ import { useDispatch, useSelector } from "react-redux";
 import BackDrop from "../components/Backdrop";
 import HastalarTableBody from "../components/HastalarTableBody";
 
+import SilmeAlert from "../components/SilmeAlert";
+
 const Hastalar = (props) => {
   const dispatch = useDispatch();
   const { hastalarState, randevularState } = useSelector((state) => state);
@@ -26,6 +28,8 @@ const Hastalar = (props) => {
   const [updateComponent, setUpdateComponent] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
+
+  // const [open, setOpen] = React.useState(false);
 
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
@@ -45,7 +49,12 @@ const Hastalar = (props) => {
   //   setFilteredSearchedName(filteredHastalarName);
   // }, [hastalarState.search]);
 
-  const handleClose = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
     setOpenEditModal(false);
   };
 
@@ -85,6 +94,7 @@ const Hastalar = (props) => {
         });
 
         setUpdateComponent(!updateComponent);
+        setOpen(true);
       })
       .catch((err) => console.log("hastalar sayfası hastaDelete err", err));
   };
@@ -232,6 +242,7 @@ const Hastalar = (props) => {
         open={openEditModal}
         handleClose={handleClose}
       />
+      {open && <SilmeAlert open={open} handleClose={handleClose} />};
     </div>
   );
 };
