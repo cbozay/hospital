@@ -176,7 +176,7 @@ const RandevuEkle = (props) => {
           display: "flex",
           justifyContent: "center",
 
-          marginTop: "75px",
+          marginTop: "150px",
         }}
       >
         <TableContainer

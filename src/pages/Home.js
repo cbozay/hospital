@@ -5,7 +5,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +19,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import { Typography } from "@mui/material";
+import { Pagination, Typography } from "@mui/material";
 import BackDrop from "../components/Backdrop";
 
 const Home = () => {
@@ -35,6 +34,39 @@ const Home = () => {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  const sortedRandevular = randevularState.randevular.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  const guncelRandevular = sortedRandevular.filter(
+    (randevu) => new Date(randevu.date).getTime() > new Date().getTime()
+  );
+
+  const gecmisRandevular = sortedRandevular.filter(
+    (randevu) => new Date(randevu.date).getTime() < new Date().getTime()
+  );
+
+  const [pageGuncel, setPageGuncel] = useState(1);
+  const handleSearchGuncel = (event, value) => {
+    setPageGuncel(value);
+  };
+  const startIndexGuncel = (pageGuncel - 1) * 5;
+  const paginatedGüncelRandevular = guncelRandevular.slice(
+    startIndexGuncel,
+    startIndexGuncel + 5
+  );
+
+  const [pageGecmis, setPageGecmis] = useState(1);
+  const handleSearchGecmis = (event, value) => {
+    setPageGecmis(value);
+  };
+  const startIndexGecmis = (pageGecmis - 1) * 5;
+
+  const paginatedGecmisRandevular = gecmisRandevular.slice(
+    startIndexGecmis,
+    startIndexGecmis + 5
+  );
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -65,18 +97,6 @@ const Home = () => {
     };
   }, []);
 
-  const sortedRandevular = randevularState.randevular.sort((a, b) => {
-    return new Date(a.date) - new Date(b.date);
-  });
-
-  const guncelRandevular = randevularState.randevular.filter(
-    (randevu) => new Date(randevu.date).getTime() > new Date().getTime()
-  );
-
-  const gecmisRandevular = randevularState.randevular.filter(
-    (randevu) => new Date(randevu.date).getTime() < new Date().getTime()
-  );
-
   const handleDelete = (id) => {
     api
       .delete(url.randevular + "/" + id)
@@ -95,18 +115,21 @@ const Home = () => {
   return (
     <div>
       <Header />
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
+          marginTop: "75px",
         }}
       >
         <TableContainer
           style={{
             marginTop: "75px",
             width: 900,
+            borderRadius: "5px 5px 5px 0",
+            backgroundColor: "#fff",
           }}
-          component={Paper}
         >
           <div
             style={{
@@ -162,55 +185,112 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedRandevular.map((randevu) => {
-                const aradigimHasta = hastalarState.hastalar
-                  .filter((hasta) => {
-                    if (hastalarState.search === "") {
-                      return hasta;
-                    } else if (
-                      hasta.name
-                        .toLowerCase()
-                        .includes(hastalarState.search.toLowerCase())
-                    ) {
-                      return hasta;
-                    }
-                  })
-                  .find((hasta) => hasta.id === randevu.hastaId);
+              {hastalarState.search
+                ? sortedRandevular.map((randevu) => {
+                    const aradigimHasta = hastalarState.hastalar
+                      .filter((hasta) => {
+                        if (
+                          hasta.name
+                            .toLowerCase()
+                            .includes(hastalarState.search.toLowerCase())
+                        ) {
+                          return hasta;
+                        }
+                      })
+                      .find((hasta) => hasta.id === randevu.hastaId);
 
-                const guncelIslem = islemlerState.islemler.find((islem) =>
-                  aradigimHasta?.islemIds.length === 1
-                    ? aradigimHasta?.islemIds[0] === islem.id
-                    : aradigimHasta?.islemIds.at(-1) === islem.id
-                );
-
-                const aradigimIslem = aradigimHasta?.islemIds.map(
-                  (hastaIslemId) => {
-                    const islemlerim = islemlerState.islemler.find(
-                      (islem) => hastaIslemId === islem.id
+                    const guncelIslem = islemlerState.islemler.find((islem) =>
+                      aradigimHasta?.islemIds.length === 1
+                        ? aradigimHasta?.islemIds[0] === islem.id
+                        : aradigimHasta?.islemIds.at(-1) === islem.id
                     );
-                    return islemlerim;
-                  }
-                );
 
-                var appointmentDate = new Date(randevu.date);
-                if (checkDate.getTime() > appointmentDate.getTime()) {
-                  return false;
-                }
-                return (
-                  <RandevuTableBody
-                    key={randevu.id}
-                    appointmentDate={appointmentDate}
-                    randevu={randevu}
-                    checkDate={checkDate}
-                    aradigimHasta={aradigimHasta}
-                    handleDelete={handleDelete}
-                    aradigimIslem={aradigimIslem}
-                    guncelIslem={guncelIslem}
-                  />
-                );
-              })}
+                    const aradigimIslem = aradigimHasta?.islemIds.map(
+                      (hastaIslemId) => {
+                        const islemlerim = islemlerState.islemler.find(
+                          (islem) => hastaIslemId === islem.id
+                        );
+                        return islemlerim;
+                      }
+                    );
+
+                    var appointmentDate = new Date(randevu.date);
+                    if (checkDate.getTime() > appointmentDate.getTime()) {
+                      return false;
+                    }
+                    return (
+                      <RandevuTableBody
+                        key={randevu.id}
+                        appointmentDate={appointmentDate}
+                        randevu={randevu}
+                        checkDate={checkDate}
+                        aradigimHasta={aradigimHasta}
+                        handleDelete={handleDelete}
+                        aradigimIslem={aradigimIslem}
+                        guncelIslem={guncelIslem}
+                      />
+                    );
+                  })
+                : paginatedGüncelRandevular.map((randevu) => {
+                    const aradigimHasta = hastalarState.hastalar
+                      .filter((hasta) => {
+                        if (
+                          hasta.name
+                            .toLowerCase()
+                            .includes(hastalarState.search.toLowerCase())
+                        ) {
+                          return hasta;
+                        }
+                      })
+                      .find((hasta) => hasta.id === randevu.hastaId);
+
+                    const guncelIslem = islemlerState.islemler.find((islem) =>
+                      aradigimHasta?.islemIds.length === 1
+                        ? aradigimHasta?.islemIds[0] === islem.id
+                        : aradigimHasta?.islemIds.at(-1) === islem.id
+                    );
+
+                    const aradigimIslem = aradigimHasta?.islemIds.map(
+                      (hastaIslemId) => {
+                        const islemlerim = islemlerState.islemler.find(
+                          (islem) => hastaIslemId === islem.id
+                        );
+                        return islemlerim;
+                      }
+                    );
+
+                    var appointmentDate = new Date(randevu.date);
+                    if (checkDate.getTime() > appointmentDate.getTime()) {
+                      return false;
+                    }
+                    return (
+                      <RandevuTableBody
+                        key={randevu.id}
+                        appointmentDate={appointmentDate}
+                        randevu={randevu}
+                        checkDate={checkDate}
+                        aradigimHasta={aradigimHasta}
+                        handleDelete={handleDelete}
+                        aradigimIslem={aradigimIslem}
+                        guncelIslem={guncelIslem}
+                      />
+                    );
+                  })}
             </TableBody>
           </Table>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "5px",
+            }}
+          >
+            <Pagination
+              page={pageGuncel}
+              onChange={handleSearchGuncel}
+              count={Math.ceil(guncelRandevular.length / 5)}
+            />
+          </div>
         </TableContainer>
       </div>
 
@@ -218,12 +298,16 @@ const Home = () => {
         style={{
           display: "flex",
           justifyContent: "center",
+          marginBottom: "75px",
         }}
       >
         <TableContainer
-          component={checked && Paper}
+          // component={checked && Paper}
           style={{
             width: 900,
+
+            borderRadius: checked && "0 5px 5px 5px",
+            backgroundColor: checked && "#fff",
           }}
         >
           <Box>
@@ -231,7 +315,7 @@ const Home = () => {
               style={{
                 marginLeft: "0px",
 
-                borderRadius: "5px",
+                borderRadius: "0 0 5px 5px",
                 backgroundColor: "#fff",
               }}
               control={<Switch checked={checked} onChange={handleChange} />}
@@ -246,7 +330,8 @@ const Home = () => {
               id="mouse-over-popover"
               sx={{
                 pointerEvents: "none",
-                marginLeft: "50px",
+                marginLeft: "59px",
+                marginTop: "1px",
               }}
               open={open}
               anchorEl={anchorEl}
@@ -296,60 +381,99 @@ const Home = () => {
                         </TableCell>
                       </TableRow>
                     )}
-                    {sortedRandevular.map((randevu) => {
-                      const aradigimHasta = hastalarState.hastalar
-                        .filter((hasta) => {
-                          if (hastalarState.search === "") {
-                            return hasta;
-                          } else if (
-                            hasta.name
-                              .toLowerCase()
-                              .includes(hastalarState.search.toLowerCase())
-                          ) {
-                            return hasta;
-                          }
-                        })
-                        .find((hasta) => hasta.id === randevu.hastaId);
-                      const guncelIslem = islemlerState.islemler.find((islem) =>
-                        aradigimHasta?.islemIds.length === 1
-                          ? aradigimHasta?.islemIds[0] === islem.id
-                          : aradigimHasta?.islemIds.at(-1) === islem.id
-                      );
+                    {hastalarState.search
+                      ? sortedRandevular.map((randevu) => {
+                          const aradigimHasta = hastalarState.hastalar
+                            .filter((hasta) => {
+                              if (
+                                hasta.name
+                                  .toLowerCase()
+                                  .includes(hastalarState.search.toLowerCase())
+                              ) {
+                                return hasta;
+                              }
+                            })
+                            .find((hasta) => hasta.id === randevu.hastaId);
 
-                      const aradigimIslem = aradigimHasta?.islemIds.map(
-                        (hastaIslemId) => {
-                          const islemlerim = islemlerState.islemler.find(
-                            (islem) => hastaIslemId === islem.id
+                          const guncelIslem = islemlerState.islemler.find(
+                            (islem) =>
+                              aradigimHasta?.islemIds.length === 1
+                                ? aradigimHasta?.islemIds[0] === islem.id
+                                : aradigimHasta?.islemIds.at(-1) === islem.id
                           );
-                          return islemlerim;
-                        }
-                      );
 
-                      // const aradigimIslem = islemlerState.islemler.filter(
-                      //   (islem) =>
-                      //     aradigimHasta.islemIds?.map(
-                      //       (islemIds) => islemIds === islem.id
-                      //     )
-                      // );
+                          const aradigimIslem = aradigimHasta?.islemIds.map(
+                            (hastaIslemId) => {
+                              const islemlerim = islemlerState.islemler.find(
+                                (islem) => hastaIslemId === islem.id
+                              );
+                              return islemlerim;
+                            }
+                          );
 
-                      var appointmentDate = new Date(randevu.date);
-                      if (checkDate.getTime() < appointmentDate.getTime()) {
-                        return false;
-                      }
+                          var appointmentDate = new Date(randevu.date);
+                          if (checkDate.getTime() < appointmentDate.getTime()) {
+                            return false;
+                          }
+                          return (
+                            <RandevuTableBody
+                              key={randevu.id}
+                              appointmentDate={appointmentDate}
+                              randevu={randevu}
+                              checkDate={checkDate}
+                              aradigimHasta={aradigimHasta}
+                              handleDelete={handleDelete}
+                              aradigimIslem={aradigimIslem}
+                              guncelIslem={guncelIslem}
+                            />
+                          );
+                        })
+                      : paginatedGecmisRandevular.map((randevu) => {
+                          const aradigimHasta = hastalarState.hastalar
+                            .filter((hasta) => {
+                              if (
+                                hasta.name
+                                  .toLowerCase()
+                                  .includes(hastalarState.search.toLowerCase())
+                              ) {
+                                return hasta;
+                              }
+                            })
+                            .find((hasta) => hasta.id === randevu.hastaId);
 
-                      return (
-                        <RandevuTableBody
-                          key={randevu.id}
-                          appointmentDate={appointmentDate}
-                          randevu={randevu}
-                          checkDate={checkDate}
-                          aradigimHasta={aradigimHasta}
-                          handleDelete={handleDelete}
-                          aradigimIslem={aradigimIslem}
-                          guncelIslem={guncelIslem}
-                        />
-                      );
-                    })}
+                          const guncelIslem = islemlerState.islemler.find(
+                            (islem) =>
+                              aradigimHasta?.islemIds.length === 1
+                                ? aradigimHasta?.islemIds[0] === islem.id
+                                : aradigimHasta?.islemIds.at(-1) === islem.id
+                          );
+
+                          const aradigimIslem = aradigimHasta?.islemIds.map(
+                            (hastaIslemId) => {
+                              const islemlerim = islemlerState.islemler.find(
+                                (islem) => hastaIslemId === islem.id
+                              );
+                              return islemlerim;
+                            }
+                          );
+
+                          var appointmentDate = new Date(randevu.date);
+                          if (checkDate.getTime() < appointmentDate.getTime()) {
+                            return false;
+                          }
+                          return (
+                            <RandevuTableBody
+                              key={randevu.id}
+                              appointmentDate={appointmentDate}
+                              randevu={randevu}
+                              checkDate={checkDate}
+                              aradigimHasta={aradigimHasta}
+                              handleDelete={handleDelete}
+                              aradigimIslem={aradigimIslem}
+                              guncelIslem={guncelIslem}
+                            />
+                          );
+                        })}
                   </TableBody>
                 </Table>
               </Zoom>
@@ -358,6 +482,19 @@ const Home = () => {
         </Zoom> */}
             </Box>
           </Box>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "5px",
+            }}
+          >
+            <Pagination
+              page={pageGecmis}
+              onChange={handleSearchGecmis}
+              count={Math.ceil(gecmisRandevular.length / 5)}
+            />
+          </div>
         </TableContainer>
       </div>
     </div>

@@ -105,7 +105,6 @@ const RandevuTableBody = (props) => {
         <TableCell align="right">
           <div
             style={{
-              width: "305px",
               display: "flex",
               justifyContent: "end",
             }}

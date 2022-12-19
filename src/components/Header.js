@@ -74,7 +74,12 @@ const Header = (props) => {
 
   return (
     <Box style={{ zIndex: "3" }} sx={{ flexGrow: 1 }}>
-      <AppBar position="absolute">
+      <AppBar
+        style={{
+          position: "fixed",
+          border: "5px solid",
+        }}
+      >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             HOSPITAL

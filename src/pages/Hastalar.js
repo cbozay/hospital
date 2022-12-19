@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../components/Header";
 import Button from "@mui/material/Button";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import Pagination from "@mui/material/Pagination";
 
 import actionTypes from "../redux/actions/actionTypes";
@@ -18,7 +17,6 @@ import EditHastaModal from "../components/EditHastaModel";
 import { api } from "../api/api";
 import { url } from "../api/url";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonGroup } from "@mui/material";
 import BackDrop from "../components/Backdrop";
 import HastalarTableBody from "../components/HastalarTableBody";
 
@@ -99,7 +97,9 @@ const Hastalar = (props) => {
   return (
     <div>
       <Header />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "75px" }}
+      >
         <TableContainer
           style={{ marginTop: "75px", width: 900 }}
           component={Paper}
