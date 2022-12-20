@@ -82,7 +82,7 @@ const Detaylar = () => {
       <Header />
       <div
         className="d-flex justify-content-center my-4"
-        style={{ paddingTop: "75px" }}
+        style={{ paddingTop: "80px" }}
       >
         <div
           className="border rounded p-4"

@@ -1,60 +1,12 @@
 {
-  "randevular": [],
+  "randevular": [
+    {
+      "id": "1671538387024",
+      "date": "2022-12-23T13:21:58.000Z",
+      "hastaId": "1671538387023"
+    }
+  ],
   "hastalar": [
-    {
-      "id": "1671472645113",
-      "name": "Hakan",
-      "surname": "Taşdemir",
-      "islemIds": [
-        "1671472645112",
-        "1671472878907",
-        "1671474266723",
-        "1671485124480"
-      ],
-      "phone": "05555555550"
-    },
-    {
-      "id": "1671472796808",
-      "name": "Caner",
-      "surname": "Yıldırım",
-      "islemIds": [
-        "1671472796807",
-        "1671474393579",
-        "1671474497279",
-        "1671485202226"
-      ],
-      "phone": "05555555563"
-    },
-    {
-      "id": "1671472954963",
-      "name": "Sevtap",
-      "surname": "Maral",
-      "islemIds": [
-        "1671472954962"
-      ],
-      "phone": "05555555561"
-    },
-    {
-      "id": "1671473038082",
-      "name": "rrtyrt",
-      "surname": "tyujtgyuj",
-      "phone": "05555555564",
-      "islemIds": [
-        "1671473037730"
-      ],
-      "img": ""
-    },
-    {
-      "id": "1671474349071",
-      "name": "Yasemin",
-      "surname": "Özdemir",
-      "islemIds": [
-        "1671474349070",
-        "1671474408580",
-        "1671474543876"
-      ],
-      "phone": "05555555562"
-    },
     {
       "id": "1671474366154",
       "name": "hjkhj",
@@ -64,51 +16,36 @@
         "1671474366111"
       ],
       "img": ""
+    },
+    {
+      "id": "1671537197365",
+      "name": "Hakan",
+      "surname": "Taşdemir",
+      "islemIds": [
+        "1671537197364"
+      ],
+      "phone": "05555555550"
+    },
+    {
+      "id": "1671538277867",
+      "name": "Sevtap",
+      "surname": "Maral",
+      "islemIds": [
+        "1671538277866"
+      ],
+      "phone": "05555555561"
+    },
+    {
+      "id": "1671538387023",
+      "name": "Yasemin",
+      "surname": "Özdemir",
+      "islemIds": [
+        "1671538387022"
+      ],
+      "phone": "05555555562"
     }
   ],
   "islemler": [
-    {
-      "id": "1671472645112",
-      "sikayet": "Kol Kırılması",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671472796807",
-      "sikayet": "Nefes Darlığı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671472878907",
-      "sikayet": "Omuz Çıkığı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671472954962",
-      "sikayet": "Kol Kırılmasıl",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671473037730",
-      "sikayet": "Nefes Darlığı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671474266723",
-      "sikayet": "Kemal",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671474349070",
-      "sikayet": "Kol Kırılması",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
     {
       "id": "1671474366111",
       "sikayet": "Nefes Darlığı",
@@ -116,37 +53,31 @@
       "yazilanIlaclar": []
     },
     {
-      "id": "1671474393579",
-      "sikayet": "Omuz Çıkığı",
+      "id": "1671532851489",
+      "sikayet": "Baş Dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1671474408580",
-      "sikayet": "Omuz Çıkığı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671474497279",
-      "sikayet": "Omuz Çıkığı",
-      "uygulananTedavi": "",
-      "yazilanIlaclar": []
-    },
-    {
-      "id": "1671474543876",
+      "id": "1671533779781",
       "sikayet": "Kol Kırılması",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1671485124480",
-      "sikayet": "Omuz Çıkığı",
+      "id": "1671537197364",
+      "sikayet": "Kemal",
       "uygulananTedavi": "",
       "yazilanIlaclar": []
     },
     {
-      "id": "1671485202226",
+      "id": "1671538277866",
+      "sikayet": "Kol Kırılması",
+      "uygulananTedavi": "",
+      "yazilanIlaclar": []
+    },
+    {
+      "id": "1671538387022",
       "sikayet": "Baş Dönmesi",
       "uygulananTedavi": "",
       "yazilanIlaclar": []

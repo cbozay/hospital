@@ -87,7 +87,7 @@ const RandevuDetay = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <TableContainer
           component={Paper}
-          style={{ marginTop: "75px", width: 1000 }}
+          style={{ marginTop: "105px", width: 1000 }}
         >
           <Table sx={{ minWidth: 650 }}>
             <TableHead>

@@ -12,7 +12,6 @@ import actionTypes from "../redux/actions/actionTypes";
 import { TableContainer, TextField } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import BackDrop from "../components/Backdrop";
-import KaydetmeAlert from "../components/KaydetmeAlert";
 
 const HastaEkle = (props) => {
   const navigate = useNavigate();
@@ -26,14 +25,6 @@ const HastaEkle = (props) => {
   const [file, setFile] = useState(null);
   const [img, setImg] = useState("");
   console.log(img);
-
-  const [open, setOpen] = React.useState(false);
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -100,10 +91,11 @@ const HastaEkle = (props) => {
           .catch((err) => console.log("HastaEkle sayfası postHasta err", err));
       })
       .catch((err) => console.log("HastaEkle sayfası postIslem err", err));
-    await setOpen(true);
+
     await setTimeout(() => {
       navigate("/hastalar");
     }, 1000);
+    dispatch({ type: actionTypes.KAYDETME_ALERT, payload: true });
   };
 
   if (hastalarState.success !== true) {
@@ -282,7 +274,6 @@ const HastaEkle = (props) => {
           </form>
         </TableContainer>
       </div>
-      {open === true && <KaydetmeAlert open={open} handleClose={handleClose} />}
     </div>
   );
 };

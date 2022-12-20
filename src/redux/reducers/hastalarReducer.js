@@ -7,6 +7,7 @@ const initialState = {
   fail: false,
   errorMessage: "",
   search: "",
+  kaydetmeAlert: false,
 };
 
 const hastalarReducer = (state = initialState, action) => {
@@ -61,6 +62,11 @@ const hastalarReducer = (state = initialState, action) => {
         ...state,
         // hastalar: filteredSearchedName,
         search: action.payload,
+      };
+    case actionTypes.KAYDETME_ALERT:
+      return {
+        ...state,
+        kaydetmeAlert: action.payload,
       };
 
     default:

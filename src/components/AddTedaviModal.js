@@ -10,7 +10,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50vw",
+  width: "500px",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -44,70 +44,60 @@ const AddTedaviModal = (props) => {
   };
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <h1 style={{ textAlign: "center" }}>Tedavi Ekle</h1>
-          <form onSubmit={handleSubmit}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                margin: "20px 0px",
-              }}
-            >
-              <TextField
-                style={{ width: "100%" }}
-                id="outlined-basic"
-                label="Uygulanan Tedavi"
-                variant="outlined"
-                value={tedavi}
-                onChange={(e) => setTedavi(e.target.value)}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                margin: "20px 0px",
-              }}
-            >
-              <TextField
-                style={{ width: "100%" }}
-                id="outlined-basic"
-                label="Yazılan İlaçlar"
-                variant="outlined"
-                value={ilac}
-                onChange={(e) => setIlac(e.target.value)}
-              />
-            </div>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <h1 style={{ textAlign: "center" }}>Tedavi Ekle</h1>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "20px 0px",
-                gap: "20px",
-              }}
-            >
-              <Button onClick={handleClose} variant="outlined" color="error">
-                Vazgeç
-              </Button>
-              <Button type="submit" variant="contained">
-                Kaydet
-              </Button>
-            </div>
-          </form>
-        </Box>
-      </Modal>
-    </div>
+        <form
+          style={{
+            display: "flex",
+            justifyItems: "center",
+            flexDirection: "column",
+            alignContent: "center",
+          }}
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            style={{ width: "100%", marginBottom: "10px" }}
+            id="outlined-basic"
+            label="Uygulanan Tedavi"
+            variant="outlined"
+            value={tedavi}
+            onChange={(e) => setTedavi(e.target.value)}
+          />
+
+          <TextField
+            style={{ width: "100%" }}
+            id="outlined-basic"
+            label="Yazılan İlaçlar"
+            variant="outlined"
+            value={ilac}
+            onChange={(e) => setIlac(e.target.value)}
+          />
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "20px 0px",
+              gap: "20px",
+            }}
+          >
+            <Button onClick={handleClose} variant="contained" color="error">
+              Vazgeç
+            </Button>
+            <Button type="submit" variant="contained">
+              Kaydet
+            </Button>
+          </div>
+        </form>
+      </Box>
+    </Modal>
   );
 };
 

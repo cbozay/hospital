@@ -23,6 +23,7 @@ import { Pagination, Typography } from "@mui/material";
 import BackDrop from "../components/Backdrop";
 
 import SilmeAlert from "../components/SilmeAlert";
+import KaydetmeAlert from "../components/KaydetmeAlert";
 
 const Home = () => {
   const { hastalarState, randevularState, islemlerState } = useSelector(
@@ -88,6 +89,7 @@ const Home = () => {
       return;
     }
     setOpen(false);
+    dispatch({ type: actionTypes.KAYDETME_ALERT, payload: false });
   };
 
   //   WARNING:It has been made possible the automatic control mechanism
@@ -163,13 +165,7 @@ const Home = () => {
               }}
             >
               <b>*</b>
-              <b
-                style={
-                  {
-                    // borderBottom: "1px solid",
-                  }
-                }
-              >
+              <b>
                 Sistemde kayıtlı bulunan güncel randevu sayısı:
                 <big>
                   {" "}
@@ -528,6 +524,12 @@ const Home = () => {
         </TableContainer>
       </div>
       {open && <SilmeAlert open={open} handleClose={handleClose} />}; ;
+      {hastalarState.kaydetmeAlert === true && (
+        <KaydetmeAlert
+          open={hastalarState.kaydetmeAlert}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 };

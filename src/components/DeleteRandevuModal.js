@@ -36,7 +36,14 @@ const DeleteRandevuModal = ({
     >
       <Fade in={openDelete}>
         <Box sx={style}>
-          <Typography id="transition-modal-description">
+          <Typography
+            style={{
+              fontSize: "20px",
+              textAlign: "center",
+              marginBottom: "3px",
+            }}
+            id="transition-modal-description"
+          >
             {`${aradigimHasta?.name} ${
               aradigimHasta?.surname
             } isimli hastaya ait ${new Date(

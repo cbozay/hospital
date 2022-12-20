@@ -3,6 +3,25 @@ import React from "react";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useNavigate } from "react-router-dom";
 
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+// import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const HastalarTableBody = ({
   hasta,
   setOpenEditModal,
@@ -10,6 +29,11 @@ const HastalarTableBody = ({
   handleDeleteHasta,
 }) => {
   const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
+
+  const handleDeleteClick = () => {};
 
   return (
     <TableRow
@@ -91,8 +115,15 @@ const HastalarTableBody = ({
           >
             Düzenle
           </Button>
-          <Button
+          {/* <Button
             onClick={() => handleDeleteHasta(hasta)}
+            variant="outlined"
+            color="error"
+          >
+            Sİl
+          </Button> */}
+          <Button
+            onClick={() => setOpen(true)}
             variant="outlined"
             color="error"
           >
@@ -107,6 +138,59 @@ const HastalarTableBody = ({
           </Button>
         </ButtonGroup>
       </TableCell>
+      {open === true && (
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography
+                style={{
+                  fontSize: "20px",
+                  textAlign: "center",
+                  marginBottom: "3px",
+                }}
+                id="transition-modal-description"
+              >
+                {`${hasta.name} ${hasta.surname} isimli hastayanın kaydını silmek istediğinize emin misiniz?`}
+              </Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  style={{ margin: "5px" }}
+                  variant="contained"
+                  onClick={() => setOpen(false)}
+                >
+                  Vazgeç
+                </Button>
+                <Button
+                  style={{ margin: "5px" }}
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    handleDeleteHasta(hasta);
+                    setOpen(false);
+                  }}
+                >
+                  Sİl
+                </Button>
+              </div>
+            </Box>
+          </Fade>
+        </Modal>
+      )}
     </TableRow>
   );
 };

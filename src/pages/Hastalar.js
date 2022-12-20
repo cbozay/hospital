@@ -20,6 +20,7 @@ import BackDrop from "../components/Backdrop";
 import HastalarTableBody from "../components/HastalarTableBody";
 
 import SilmeAlert from "../components/SilmeAlert";
+import KaydetmeAlert from "../components/KaydetmeAlert";
 
 const Hastalar = (props) => {
   const dispatch = useDispatch();
@@ -28,8 +29,6 @@ const Hastalar = (props) => {
   const [updateComponent, setUpdateComponent] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [selectedHasta, setSelectedHasta] = useState(null);
-
-  // const [open, setOpen] = React.useState(false);
 
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
@@ -56,6 +55,7 @@ const Hastalar = (props) => {
     }
     setOpen(false);
     setOpenEditModal(false);
+    dispatch({ type: actionTypes.KAYDETME_ALERT, payload: false });
   };
 
   const handleDeleteHasta = async (hasta) => {
@@ -139,13 +139,7 @@ const Hastalar = (props) => {
               }}
             >
               <b>*</b>
-              <b
-                style={
-                  {
-                    // borderBottom: "1px solid",
-                  }
-                }
-              >
+              <b>
                 Sistemde kayıtlı bulunan toplam hasta sayısı:
                 <big>
                   {" "}
@@ -244,6 +238,12 @@ const Hastalar = (props) => {
         handleClose={handleClose}
       />
       {open && <SilmeAlert open={open} handleClose={handleClose} />};
+      {hastalarState.kaydetmeAlert === true && (
+        <KaydetmeAlert
+          open={hastalarState.kaydetmeAlert}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 };
