@@ -1,3 +1,48 @@
+# Hospital Automation
+
+
+
+
+
+https://user-images.githubusercontent.com/108167655/209095242-2b638e32-0de3-49b4-a674-0faf900517fd.mp4
+
+
+
+
+
+
+
+
+
+
+![](Portfolio.gif)
+
+<h1>What is it about?
+<h6>1-It is a full-dynamic web application allowing to save patient datas admissed and examined on database and 
+to make changes over these datas.
+
+2-All warnings checking validations of data entrances in system are available. For instance; in case of intersection
+of appointment time and patients' phone numbers, not to be able to appointment admission and so on.
+
+3-In order to be able to be made patient follow-up rapidly and effectively, patient name searching and pagination are available.
+
+4-The most striking aspect of system is existance of an automatic control mecanism notifying that the appointment time has come
+for any patient whose appointment has come. When it is five minutes left for apppointment time, appointment data belonging to the
+patient turn into yellow color. If appointment time has passed, automatic control mecanism carry appointment data of the patient
+to allocated field for "Passed Appointments".
+
+5-The application has the last version being ready for use. Thanks to all these features, folow-up of thousands of patients easily.
+
+6-While React, Redux, Material UI ve Boostrap libraries have been used in Frontend section of construction stage, JSON Rest Api
+has been used in Backend section. In all stages, Javascript ES6 standarts have been used.
+
+<h3>How it's made?
+<h6>6-While React, Redux, Material UI ve Boostrap libraries have been used in Frontend section of construction stage, JSON Rest Api
+has been used in Backend section. In all stages, Javascript ES6 standarts have been used.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
