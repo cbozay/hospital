@@ -33,8 +33,6 @@ to allocated field for "Passed Appointments".
 
 5-The application has the last version being ready for use. Thanks to all these features, folow-up of thousands of patients easily.
 
-6-While React, Redux, Material UI ve Boostrap libraries have been used in Frontend section of construction stage, JSON Rest Api
-has been used in Backend section. In all stages, Javascript ES6 standarts have been used.
 
 <h3>How it's made?
 <h6>6-While React, Redux, Material UI ve Boostrap libraries have been used in Frontend section of construction stage, JSON Rest Api
