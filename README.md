@@ -9,6 +9,10 @@ https://user-images.githubusercontent.com/108167655/209095242-2b638e32-0de3-49b4
 
 
 
+https://github.com/cbozay/hospital/assets/108167655/3776834b-af6f-48a3-aa3c-aa73fa5b00b4
+
+
+
 
 
 
